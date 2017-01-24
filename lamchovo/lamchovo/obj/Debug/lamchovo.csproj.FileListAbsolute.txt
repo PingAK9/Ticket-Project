@@ -1,0 +1,13 @@
+c:\users\anonymous\documents\visual studio 2015\Projects\lamchovo\lamchovo\bin\Debug\lamchovo.exe.config
+c:\users\anonymous\documents\visual studio 2015\Projects\lamchovo\lamchovo\bin\Debug\lamchovo.exe
+c:\users\anonymous\documents\visual studio 2015\Projects\lamchovo\lamchovo\bin\Debug\lamchovo.pdb
+c:\users\anonymous\documents\visual studio 2015\Projects\lamchovo\lamchovo\obj\Debug\lamchovo.Properties.Resources.resources
+c:\users\anonymous\documents\visual studio 2015\Projects\lamchovo\lamchovo\obj\Debug\lamchovo.csproj.GenerateResource.Cache
+c:\users\anonymous\documents\visual studio 2015\Projects\lamchovo\lamchovo\obj\Debug\lamchovo.exe
+c:\users\anonymous\documents\visual studio 2015\Projects\lamchovo\lamchovo\obj\Debug\lamchovo.pdb
+C:\Users\Anonymous\documents\visual studio 2015\Projects\lamchovo\lamchovo\obj\Debug\lamchovo.GUI.frmPrice.resources
+C:\Users\Anonymous\documents\visual studio 2015\Projects\lamchovo\lamchovo\obj\Debug\lamchovo.GUI.frmTicket.resources
+C:\Users\Anonymous\Documents\Visual Studio 2015\Projects\lamchovo\lamchovo\obj\Debug\lamchovo.GUI.frmClient.resources
+C:\Users\Anonymous\Documents\Visual Studio 2015\Projects\lamchovo\lamchovo\obj\Debug\lamchovo.GUI.frmFile.resources
+C:\Users\Anonymous\Documents\Visual Studio 2015\Projects\lamchovo\lamchovo\obj\Debug\lamchovo.GUI.frmType.resources
+C:\Users\Anonymous\Documents\Visual Studio 2015\Projects\lamchovo\lamchovo\obj\Debug\lamchovo.GUI.frmImport.resources
