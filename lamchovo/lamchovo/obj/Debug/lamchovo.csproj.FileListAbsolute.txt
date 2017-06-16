@@ -11,3 +11,17 @@ C:\Users\Anonymous\Documents\Visual Studio 2015\Projects\lamchovo\lamchovo\obj\D
 C:\Users\Anonymous\Documents\Visual Studio 2015\Projects\lamchovo\lamchovo\obj\Debug\lamchovo.GUI.frmFile.resources
 C:\Users\Anonymous\Documents\Visual Studio 2015\Projects\lamchovo\lamchovo\obj\Debug\lamchovo.GUI.frmType.resources
 C:\Users\Anonymous\Documents\Visual Studio 2015\Projects\lamchovo\lamchovo\obj\Debug\lamchovo.GUI.frmImport.resources
+D:\KhanhTN\Github\ticket-project\lamchovo\lamchovo\bin\Debug\lamchovo.exe.config
+D:\KhanhTN\Github\ticket-project\lamchovo\lamchovo\bin\Debug\lamchovo.exe
+D:\KhanhTN\Github\ticket-project\lamchovo\lamchovo\bin\Debug\lamchovo.pdb
+D:\KhanhTN\Github\ticket-project\lamchovo\lamchovo\obj\Debug\lamchovo.csprojResolveAssemblyReference.cache
+D:\KhanhTN\Github\ticket-project\lamchovo\lamchovo\obj\Debug\lamchovo.GUI.frmClient.resources
+D:\KhanhTN\Github\ticket-project\lamchovo\lamchovo\obj\Debug\lamchovo.GUI.frmImport.resources
+D:\KhanhTN\Github\ticket-project\lamchovo\lamchovo\obj\Debug\lamchovo.GUI.frmType.resources
+D:\KhanhTN\Github\ticket-project\lamchovo\lamchovo\obj\Debug\lamchovo.GUI.frmFile.resources
+D:\KhanhTN\Github\ticket-project\lamchovo\lamchovo\obj\Debug\lamchovo.GUI.frmPrice.resources
+D:\KhanhTN\Github\ticket-project\lamchovo\lamchovo\obj\Debug\lamchovo.GUI.frmTicket.resources
+D:\KhanhTN\Github\ticket-project\lamchovo\lamchovo\obj\Debug\lamchovo.Properties.Resources.resources
+D:\KhanhTN\Github\ticket-project\lamchovo\lamchovo\obj\Debug\lamchovo.csproj.GenerateResource.Cache
+D:\KhanhTN\Github\ticket-project\lamchovo\lamchovo\obj\Debug\lamchovo.exe
+D:\KhanhTN\Github\ticket-project\lamchovo\lamchovo\obj\Debug\lamchovo.pdb
