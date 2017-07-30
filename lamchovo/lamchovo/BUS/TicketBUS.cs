@@ -45,6 +45,15 @@ namespace lamchovo.BUS
         {
             TicketDAO.DeleteAll();
         }
+        // Report
+        static public DataTable ReportTicket(DateTime _date1, DateTime _date2)
+        {
+            return TicketDAO.ReportTicket(_date1, _date2);
+        }
+        static public DataTable ReportTicket(DateTime _date1, DateTime _date2, int _type)
+        {
+            return TicketDAO.ReportTicket(_date1, _date2, _type);
+        }
         // Select TOTAL
         static public DataTable SelectFileTotal(int _fileName, int _type)
         {
@@ -66,11 +75,27 @@ namespace lamchovo.BUS
         {
             return TicketDAO.SelectDayOnTicketTotal(_from, _to, _type, _client);
         }
-        // Select to show
-        static public DataTable SelectFile(int _fileName)
+        static public DataTable SelectFileTotal(int _fileName)
         {
-            return TicketDAO.SelectFile(_fileName);
+            return TicketDAO.SelectFileTotal(_fileName);
         }
+        static public DataTable SelectDayTicketTotal(DateTime _from, DateTime _to)
+        {
+            return TicketDAO.SelectDayTicketTotal(_from, _to);
+        }
+        static public DataTable SelectDayTicketTotal(DateTime _from, DateTime _to, List<int> _client)
+        {
+            return TicketDAO.SelectDayTicketTotal(_from, _to, _client);
+        }
+        static public DataTable SelectDayOnTicketTotal(DateTime _from, DateTime _to)
+        {
+            return TicketDAO.SelectDayOnTicketTotal(_from, _to);
+        }
+        static public DataTable SelectDayOnTicketTotal(DateTime _from, DateTime _to, List<int> _client)
+        {
+            return TicketDAO.SelectDayOnTicketTotal(_from, _to, _client);
+        }
+        // Select to show
         static public DataTable SelectFile(int _fileName, int _type)
         {
             return TicketDAO.SelectFile(_fileName, _type);
@@ -90,6 +115,26 @@ namespace lamchovo.BUS
         static public DataTable SelectDayOnTicket(DateTime _from, DateTime _to, int _type, List<int> _client)
         {
             return TicketDAO.SelectDayOnTicket(_from, _to, _type, _client);
+        }
+        static public DataTable SelectFile(int _fileName)
+        {
+            return TicketDAO.SelectFile(_fileName);
+        }
+        static public DataTable SelectDayTicket(DateTime _from, DateTime _to)
+        {
+            return TicketDAO.SelectDayTicket(_from, _to);
+        }
+        static public DataTable SelectDayTicket(DateTime _from, DateTime _to, List<int> _client)
+        {
+            return TicketDAO.SelectDayTicket(_from, _to, _client);
+        }
+        static public DataTable SelectDayOnTicket(DateTime _from, DateTime _to)
+        {
+            return TicketDAO.SelectDayOnTicket(_from, _to);
+        }
+        static public DataTable SelectDayOnTicket(DateTime _from, DateTime _to, List<int> _client)
+        {
+            return TicketDAO.SelectDayOnTicket(_from, _to, _client);
         }
         // select to export
         static public DataTable SelectFileExport(int _fileName, int _type)

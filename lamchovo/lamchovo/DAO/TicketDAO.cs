@@ -125,6 +125,25 @@ namespace lamchovo.DAO
             _loop += " clientt = " + _client[_client.Count - 1] + ")";
             return _loop;
         }
+
+        // Select TOTAL
+        static public DataTable ReportTicket(DateTime _date1, DateTime _date2)
+        {
+            string sql = "select sum(countt) as totalCountt, sum(pricet * countt) as totalPricet, typet, clientt from Ticket WHERE"
+                + " dayt >= DateValue('" + _date1.ToShortDateString() + "')"
+                + " AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
+                + " group by clientt, typet ORDER BY clientt asc";
+            return DataAccess.ExcuQuery(sql);
+        }
+        static public DataTable ReportTicket(DateTime _date1, DateTime _date2, int _type)
+        {
+            string sql = "select sum(countt) as totalCountt, sum(pricet * countt) as totalPricet, typet, clientt  from Ticket WHERE"
+                + " dayt >= DateValue('" + _date1.ToShortDateString() + "')"
+                + " AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
+                + " and typet = " + _type + ""
+                + " group by clientt, typet ORDER BY clientt asc";
+            return DataAccess.ExcuQuery(sql);
+        }
         // Select TOTAL
         static public DataTable SelectFileTotal(int _fileName, int _type)
         {
@@ -169,12 +188,46 @@ namespace lamchovo.DAO
                 + " and " + loop(_client);
             return DataAccess.ExcuQuery(sql);
         }
-        // Select *
-        static public DataTable SelectFile(int _fileName)
+        static public DataTable SelectFileTotal(int _fileName)
         {
-            string sql = "select * from Ticket WHERE filet = " + _fileName + "";
+            string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE filet = " + _fileName + "";
             return DataAccess.ExcuQuery(sql);
         }
+        static public DataTable SelectDayTicketTotal(DateTime _date1, DateTime _date2)
+        {
+            string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE"
+                + " dayt >= DateValue('" + _date1.ToShortDateString() + "')"
+                + " AND dayt <= DateValue('" + _date2.ToShortDateString() + "')";
+            return DataAccess.ExcuQuery(sql);
+        }
+        static public DataTable SelectDayTicketTotal(DateTime _date1, DateTime _date2, List<int> _client)
+        {
+            if (_client == null || _client.Count == 0)
+            {
+                return SelectDayTicketTotal(_date1, _date2);
+            }
+            string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE "
+                + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
+                + " and " + loop(_client);
+            return DataAccess.ExcuQuery(sql);
+        }
+        static public DataTable SelectDayOnTicketTotal(DateTime _date1, DateTime _date2)
+        {
+            string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')";
+            return DataAccess.ExcuQuery(sql);
+        }
+        static public DataTable SelectDayOnTicketTotal(DateTime _date1, DateTime _date2, List<int> _client)
+        {
+            if (_client == null || _client.Count == 0)
+            {
+                return SelectDayOnTicketTotal(_date1, _date2);
+            }
+            string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE "
+                + " dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')"
+                + " and " + loop(_client);
+            return DataAccess.ExcuQuery(sql);
+        }
+        // Select *
         static public DataTable SelectFile(int _fileName, int _type)
         {
             string sql = "select * from Ticket WHERE filet = " + _fileName + " and typet = " + _type + "";
@@ -218,6 +271,44 @@ namespace lamchovo.DAO
             return DataAccess.ExcuQuery(sql);
         }
 
+        static public DataTable SelectFile(int _fileName)
+        {
+            string sql = "select * from Ticket WHERE filet = " + _fileName + "";
+            return DataAccess.ExcuQuery(sql);
+        }
+        static public DataTable SelectDayTicket(DateTime _date1, DateTime _date2)
+        {
+            string sql = "select * from Ticket WHERE"
+                + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')";
+            return DataAccess.ExcuQuery(sql);
+        }
+        static public DataTable SelectDayTicket(DateTime _date1, DateTime _date2, List<int> _client)
+        {
+            if (_client == null || _client.Count == 0)
+            {
+                return SelectDayTicket(_date1, _date2);
+            }
+            string sql = "select * from Ticket WHERE "
+                + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
+                + " and " + loop(_client);
+            return DataAccess.ExcuQuery(sql);
+        }
+        static public DataTable SelectDayOnTicket(DateTime _date1, DateTime _date2)
+        {
+            string sql = "select * from Ticket WHERE dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')";
+            return DataAccess.ExcuQuery(sql);
+        }
+        static public DataTable SelectDayOnTicket(DateTime _date1, DateTime _date2, List<int> _client)
+        {
+            if (_client == null || _client.Count == 0)
+            {
+                return SelectDayOnTicket(_date1, _date2);
+            }
+            string sql = "select * from Ticket WHERE "
+                + " dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')"
+                + " and " + loop(_client);
+            return DataAccess.ExcuQuery(sql);
+        }
         // Select dayt,countt,pricet to Export
         static public DataTable SelectFileExport(int _fileName, int _type)
         {

@@ -38,7 +38,7 @@ namespace lamchovo.GUI
             //
             cbClient.ValueMember = "ID";
             cbClient.DisplayMember = "clientt";
-            cbClient.DataSource = ClientBUS.SelectTrim();
+            cbClient.DataSource = ClientBUS.Select();
             //
             cbFileFilter.ValueMember = "ID";
             cbFileFilter.DisplayMember = "filet";
@@ -92,7 +92,7 @@ namespace lamchovo.GUI
         }
         public void refreshFormClient()
         {
-            cbClient.DataSource = ClientBUS.SelectTrim();
+            cbClient.DataSource = ClientBUS.Select();
             checkClientExport.DataSource = ClientBUS.Select();
             checkClientExport.ValueMember = "ID";
             checkClientExport.DisplayMember = "clientt";
@@ -109,7 +109,7 @@ namespace lamchovo.GUI
             cbTypeFilter.DataSource = TypeTicketBUS.Select();
             refreshFormPrice();
             cbFileFilter.DataSource = FileBUS.Select();
-            cbClient.DataSource = ClientBUS.SelectTrim();
+            cbClient.DataSource = ClientBUS.Select();
             cbFile.DataSource = FileBUS.Select();
             checkClientExport.DataSource = ClientBUS.Select();
             checkClientExport.ValueMember = "ID";
@@ -127,43 +127,88 @@ namespace lamchovo.GUI
             }
             DataTable _dt = new DataTable();
             DataTable _dtTotal = new DataTable();
-            switch (filterBy)
+            if (checkBoxType.Checked == true)
             {
-                case FilterBy.filename:
-                    try
-                    {
-                        _dt = TicketBUS.SelectFile((int)cbFileFilter.SelectedValue, typeTicket);
-                        _dtTotal = TicketBUS.SelectFileTotal((int)cbFileFilter.SelectedValue, typeTicket);
-                    }
-                    catch (Exception)
-                    {
-                        // file empty
-                    }
-                    break;
-                case FilterBy.dayTicket:
-                    if (checkClientExport.GetItemCheckState(0) == CheckState.Checked)
-                    {
-                        _dt = TicketBUS.SelectDayTicket(dtFrom.Value, dtTo.Value, typeTicket);
-                        _dtTotal = TicketBUS.SelectDayTicketTotal(dtFrom.Value, dtTo.Value, typeTicket);
-                    }
-                    else
-                    {
-                        _dt = TicketBUS.SelectDayTicket(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
-                        _dtTotal = TicketBUS.SelectDayTicketTotal(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
-                    }
-                    break;
-                case FilterBy.dayOn:
-                    if (checkClientExport.GetItemCheckState(0) == CheckState.Checked)
-                    {
-                        _dt = TicketBUS.SelectDayOnTicket(dtFrom.Value, dtTo.Value, typeTicket);
-                        _dtTotal = TicketBUS.SelectDayOnTicketTotal(dtFrom.Value, dtTo.Value, typeTicket);
-                    }
-                    else
-                    {
-                        _dt = TicketBUS.SelectDayOnTicket(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
-                        _dtTotal = TicketBUS.SelectDayOnTicketTotal(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
-                    }
-                    break;
+                switch (filterBy)
+                {
+                    case FilterBy.filename:
+                        try
+                        {
+                            _dt = TicketBUS.SelectFile((int)cbFileFilter.SelectedValue, typeTicket);
+                            _dtTotal = TicketBUS.SelectFileTotal((int)cbFileFilter.SelectedValue, typeTicket);
+                        }
+                        catch (Exception)
+                        {
+                            // file empty
+                        }
+                        break;
+                    case FilterBy.dayTicket:
+                        if (checkBoxClient.Checked == true)
+                        {
+                            _dt = TicketBUS.SelectDayTicket(dtFrom.Value, dtTo.Value, typeTicket);
+                            _dtTotal = TicketBUS.SelectDayTicketTotal(dtFrom.Value, dtTo.Value, typeTicket);
+                        }
+                        else
+                        {
+                            _dt = TicketBUS.SelectDayTicket(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
+                            _dtTotal = TicketBUS.SelectDayTicketTotal(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
+                        }
+                        break;
+                    case FilterBy.dayOn:
+                        if (checkBoxClient.Checked == true)
+                        {
+                            _dt = TicketBUS.SelectDayOnTicket(dtFrom.Value, dtTo.Value, typeTicket);
+                            _dtTotal = TicketBUS.SelectDayOnTicketTotal(dtFrom.Value, dtTo.Value, typeTicket);
+                        }
+                        else
+                        {
+                            _dt = TicketBUS.SelectDayOnTicket(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
+                            _dtTotal = TicketBUS.SelectDayOnTicketTotal(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
+                        }
+                        break;
+                }
+            }
+            else
+            {
+
+                switch (filterBy)
+                {
+                    case FilterBy.filename:
+                        try
+                        {
+                            _dt = TicketBUS.SelectFile((int)cbFileFilter.SelectedValue);
+                            _dtTotal = TicketBUS.SelectFileTotal((int)cbFileFilter.SelectedValue);
+                        }
+                        catch (Exception)
+                        {
+                            // file empty
+                        }
+                        break;
+                    case FilterBy.dayTicket:
+                        if (checkBoxClient.Checked == true)
+                        {
+                            _dt = TicketBUS.SelectDayTicket(dtFrom.Value, dtTo.Value);
+                            _dtTotal = TicketBUS.SelectDayTicketTotal(dtFrom.Value, dtTo.Value);
+                        }
+                        else
+                        {
+                            _dt = TicketBUS.SelectDayTicket(dtFrom.Value, dtTo.Value, ClientCheck());
+                            _dtTotal = TicketBUS.SelectDayTicketTotal(dtFrom.Value, dtTo.Value, ClientCheck());
+                        }
+                        break;
+                    case FilterBy.dayOn:
+                        if (checkBoxClient.Checked == true)
+                        {
+                            _dt = TicketBUS.SelectDayOnTicket(dtFrom.Value, dtTo.Value);
+                            _dtTotal = TicketBUS.SelectDayOnTicketTotal(dtFrom.Value, dtTo.Value);
+                        }
+                        else
+                        {
+                            _dt = TicketBUS.SelectDayOnTicket(dtFrom.Value, dtTo.Value, ClientCheck());
+                            _dtTotal = TicketBUS.SelectDayOnTicketTotal(dtFrom.Value, dtTo.Value, ClientCheck());
+                        }
+                        break;
+                }
             }
             gridView.DataSource = _dt;
             if (_dtTotal.Rows.Count > 0)
@@ -178,16 +223,16 @@ namespace lamchovo.GUI
             }
             
         }
-        public void HienThiDanhSachFileImport(int _id, int _type)
+        public void HienThiDanhSachFileImport(int _id)
         {
             refreshFormPrice();
             cbFileFilter.DataSource = FileBUS.Select();
             cbFile.DataSource = FileBUS.Select();
             cbFilter.SelectedValue = 0;
             cbFileFilter.SelectedValue = _id;
-            cbTypeFilter.SelectedValue = _type;
+            checkBoxType.Checked = false;
             DataTable _dt = TicketBUS.SelectFile((int)cbFileFilter.SelectedValue);
-            DataTable _dtTotal = TicketBUS.SelectFileTotal((int)cbFileFilter.SelectedValue, _type);
+            DataTable _dtTotal = TicketBUS.SelectFileTotal((int)cbFileFilter.SelectedValue);
             gridView.DataSource = _dt;
             if (_dtTotal.Rows.Count > 0)
             {
@@ -214,9 +259,17 @@ namespace lamchovo.GUI
                 MessageBox.Show("Số lượng không đúng", "Thông báo");
                 return;
             }
+            try
+            {
+                _item.file = (int)cbFile.SelectedValue;
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("File không đúng", "Thông báo");
+                return;
+            }
             _item.price = (int)cbPrice.SelectedValue;
             _item.client = (int)cbClient.SelectedValue;
-            _item.file = (int)cbFile.SelectedValue;
             _item.type = (int)cbType.SelectedValue;
             _item.dayon = dtDayOn.Value;
             if (TicketBUS.Insert(_item) == false)
@@ -304,41 +357,41 @@ namespace lamchovo.GUI
                 return;
             }
             Directory.SetCurrentDirectory(oldPath);
-            ExcelWrite myExcel = new ExcelWrite();
-            List<String> list;
-            DataTable dt = GetDataExport();
-            list = myExcel.TicketDataToExcel(dt, 12);
+            ExcelFileWriterTicket myExcel = new ExcelFileWriterTicket();
+            DataTable dtMega = GetDataExport(1);
+            DataTable dtMax = GetDataExport(2);
+            DataTable dtPower = GetDataExport(3);
             String filePath = Directory.GetCurrentDirectory() + strFileName;
-            myExcel.WriteDateToExcel(strFileName, list, "A11", "E11", "A12");
+            myExcel.WriteDateToExcel(strFileName, dtMega, dtMax, dtPower, "A5", 5);
             MessageBox.Show("Export dữ liệu thành công...", "Thông báo");
             Process.Start(strFileName + ".xlsx");
         }
-        DataTable GetDataExport()
+        DataTable GetDataExport(int _type)
         {
             DataTable _dt = new DataTable();
             switch (filterBy)
             {
                 case FilterBy.filename:
-                    _dt = TicketBUS.SelectFileExport((int)cbFileFilter.SelectedValue, typeTicket);
+                    _dt = TicketBUS.SelectFileExport((int)cbFileFilter.SelectedValue, _type);
                     break;
                 case FilterBy.dayTicket:
                     if (checkClientExport.GetItemCheckState(0) == CheckState.Checked)
                     {
-                        _dt = TicketBUS.SelectDayTicketExport(dtFrom.Value, dtTo.Value, typeTicket);
+                        _dt = TicketBUS.SelectDayTicketExport(dtFrom.Value, dtTo.Value, _type);
                     }
                     else
                     {
-                        _dt = TicketBUS.SelectDayTicketExport(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
+                        _dt = TicketBUS.SelectDayTicketExport(dtFrom.Value, dtTo.Value, _type, ClientCheck());
                     }
                     break;
                 case FilterBy.dayOn:
                     if (checkClientExport.GetItemCheckState(0) == CheckState.Checked)
                     {
-                        _dt = TicketBUS.SelectDayOnTicketExport(dtFrom.Value, dtTo.Value, typeTicket);
+                        _dt = TicketBUS.SelectDayOnTicketExport(dtFrom.Value, dtTo.Value, _type);
                     }
                     else
                     {
-                        _dt = TicketBUS.SelectDayOnTicketExport(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
+                        _dt = TicketBUS.SelectDayOnTicketExport(dtFrom.Value, dtTo.Value, _type, ClientCheck());
                     }
                     break;
             }
@@ -378,6 +431,7 @@ namespace lamchovo.GUI
                         break;
                 }
             }
+            MessageBox.Show("Xóa thành công", "Xác nhận", MessageBoxButtons.OK);
             HienThiDanhSach();
         }
         private void gridView_SelectionChanged(object sender, EventArgs e)
@@ -436,7 +490,7 @@ namespace lamchovo.GUI
         List<int> ClientCheck()
         {
             List<int> _s = new List<int>();
-            for (int i = 1; i < checkClientExport.Items.Count; i++)
+            for (int i = 0; i < checkClientExport.Items.Count; i++)
             {
                 if (checkClientExport.GetItemCheckState(i) == CheckState.Checked)
                 {
@@ -467,6 +521,8 @@ namespace lamchovo.GUI
                     dtTo.Visible = false;
                     lblFrom.Visible = false;
                     lblTo.Visible = false;
+                    labelFileName.Visible = true;
+                    checkBoxClient.Visible = false;
                     break;
                 case FilterBy.dayTicket:
                     cbFileFilter.Visible = false;
@@ -475,6 +531,8 @@ namespace lamchovo.GUI
                     dtTo.Visible = true;
                     lblFrom.Visible = true;
                     lblTo.Visible = true;
+                    labelFileName.Visible = false;
+                    checkBoxClient.Visible = true;
                     break;
                 case FilterBy.dayOn:
                     cbFileFilter.Visible = false;
@@ -483,6 +541,8 @@ namespace lamchovo.GUI
                     dtTo.Visible = true;
                     lblFrom.Visible = true;
                     lblTo.Visible = true;
+                    labelFileName.Visible = false;
+                    checkBoxClient.Visible = true;
                     break;
                 default:
                     cbFileFilter.Visible = false;
@@ -491,6 +551,8 @@ namespace lamchovo.GUI
                     dtTo.Visible = false;
                     lblFrom.Visible = false;
                     lblTo.Visible = false;
+                    labelFileName.Visible = true;
+                    checkBoxClient.Visible = false;
                     break;
             }
         }
@@ -501,56 +563,53 @@ namespace lamchovo.GUI
             {
                 return;
             }
-            if (e.Index == 0)
+            int count = 0;
+            if (e.NewValue == CheckState.Checked && checkBoxClient.Checked == false)
             {
-                if (e.NewValue == CheckState.Checked)
+                for (int i = 0; i < checkClientExport.Items.Count; i++)
                 {
-                    for (int i = 1; i < checkClientExport.Items.Count; i++)
+                    if (checkClientExport.GetItemCheckState(i) != CheckState.Checked && e.Index != i)
                     {
-                        if (checkClientExport.GetItemCheckState(i) != CheckState.Checked)
-                        {
-                            checkClientExport.SetItemCheckState(i, CheckState.Checked);
-                        }
+                        count++;
                     }
                 }
-                else
+                if (count == 0)
                 {
-                    for (int i = 1; i < checkClientExport.Items.Count; i++)
+                    checkBoxClient.Checked = true;
+                }
+            }
+            else if (e.NewValue != CheckState.Checked && checkBoxClient.Checked == true)
+            {
+                checkBoxClient.Checked = false;
+            }
+
+            this.BeginInvoke((MethodInvoker)(
+            () =>
+            HienThiDanhSach()));
+        }
+        private void checkBoxClient_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (checkBoxClient.Checked == true)
+            {
+                for (int i = 0; i < checkClientExport.Items.Count; i++)
+                {
+                    if (checkClientExport.GetItemCheckState(i) != CheckState.Checked)
                     {
-                        if (checkClientExport.GetItemCheckState(i) == CheckState.Checked)
-                        {
-                            checkClientExport.SetItemCheckState(i, CheckState.Unchecked);
-                        }
+                        checkClientExport.SetItemCheckState(i, CheckState.Checked);
                     }
                 }
             }
             else
             {
-                int count = 0;
-                if (e.NewValue == CheckState.Checked && checkClientExport.GetItemCheckState(0) != CheckState.Checked)
+                for (int i = 0; i < checkClientExport.Items.Count; i++)
                 {
-                    for (int i = 1; i < checkClientExport.Items.Count; i++)
+                    if (checkClientExport.GetItemCheckState(i) == CheckState.Checked)
                     {
-                        if (checkClientExport.GetItemCheckState(i) != CheckState.Checked && e.Index != i)
-                        {
-                            count++;
-                        }
+                        checkClientExport.SetItemCheckState(i, CheckState.Unchecked);
                     }
-                    if (count == 0)
-                    {
-                        checkClientExport.SetItemCheckState(0, CheckState.Checked);
-                    }
-                }
-                else if (e.NewValue != CheckState.Checked && checkClientExport.GetItemCheckState(0) == CheckState.Checked)
-                {
-                    checkClientExport.SetItemCheckState(0, CheckState.Unchecked);
                 }
             }
-            this.BeginInvoke((MethodInvoker)(
-            () =>
-            HienThiDanhSach()));
         }
-
         private void btnImport_Click(object sender, EventArgs e)
         {
             frmImport _frm = new frmImport();
@@ -567,7 +626,11 @@ namespace lamchovo.GUI
                 HienThiDanhSach();
             }
         }
-
+        private void báoCáoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmTicketDetail _frm = new frmTicketDetail();
+            _frm.ShowDialog();
+        }
         private void fileNhậpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmFile _frm = new frmFile();
@@ -621,6 +684,47 @@ namespace lamchovo.GUI
             return strAux;
         }
 
+        private void checkBoxType_CheckedChanged(object sender, EventArgs e)
+        {
+            cbTypeFilter.Enabled = checkBoxType.Checked;
+            HienThiDanhSach();
+        }
+        private void gridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (gridView.Columns[e.ColumnIndex].DataPropertyName != "pricet")
+            {
+                return;
+            }
+
+            DataView dv = null;
+            CurrencyManager cm = (CurrencyManager)(gridView.BindingContext[gridView.DataSource, gridView.DataMember]);
+
+            if (cm.List is BindingSource)
+            {
+                // In case of BindingSource it may be chain of BindingSources+relations
+                BindingSource bs = (BindingSource)cm.List;
+                while (bs.List is BindingSource)
+                { bs = bs.List as BindingSource; }
+
+                if (bs.List is DataView)
+                { dv = bs.List as DataView; }
+            }
+            else if (cm.List is DataView)
+            {
+                // dgv bind to the DataView, Table or DataSet+"tablename"
+                dv = cm.List as DataView;
+            }
+
+            if (dv != null)
+            {
+                dv.Sort = "pricet ASC, dayt ASC";
+            }
+        }
+
+        private void groupBox6_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public enum FilterBy

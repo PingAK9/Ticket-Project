@@ -25,7 +25,7 @@ namespace lamchovo.GUI
         }
         void HienThiDanhSach()
         {
-            gridView.DataSource = ClientBUS.SelectTrim();
+            gridView.DataSource = ClientBUS.Select();
         }
 
         private void btnThem_Click(object sender, EventArgs e)

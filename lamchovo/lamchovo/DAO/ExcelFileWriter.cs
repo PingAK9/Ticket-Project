@@ -1,8 +1,11 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using System.Reflection;
+
+
 
 namespace lamchovo.DAO
 {
@@ -69,6 +72,7 @@ namespace lamchovo.DAO
             //_excelApplication.Workbooks.Open(fileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             this.SaveExcel(fileName);
             //Start(fileName);
+
         }
 
 
@@ -80,7 +84,7 @@ namespace lamchovo.DAO
         {
             _excelApplication = new Microsoft.Office.Interop.Excel.Application();
             _workBooks = (Microsoft.Office.Interop.Excel.Workbooks)_excelApplication.Workbooks;
-            _workBook = (Microsoft.Office.Interop.Excel._Workbook)(_workBooks.Open(Environment.CurrentDirectory + @"\template.xlsx"));
+            _workBook = (Microsoft.Office.Interop.Excel._Workbook)(_workBooks.Add(_value));
             _excelSheets = (Microsoft.Office.Interop.Excel.Sheets)_workBook.Worksheets;
             _excelSheet = (Microsoft.Office.Interop.Excel._Worksheet)(_excelSheets.get_Item(1));
         }
@@ -120,7 +124,7 @@ namespace lamchovo.DAO
         /// <param name="fileName"></param>
         protected virtual void SaveExcel(string fileName)
         {
-            _workBook.SaveAs(fileName, 51, _value,
+            _workBook.SaveAs(fileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal, _value,
                 _value, _value, _value, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
                 _value, _value, _value, _value, null);
             _workBook.Close(false, _value, _value);

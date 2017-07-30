@@ -12,12 +12,7 @@ namespace lamchovo.DAO
     {
         static public DataTable Select()
         {
-            string sql = "select * from Client";
-            return DataAccess.ExcuQuery(sql);
-        }
-        static public DataTable SelectTrim()
-        {
-            string sql = "select * from Client where clientt <> 'All'";
+            string sql = "select * from Client ORDER BY ID asc";
             return DataAccess.ExcuQuery(sql);
         }
         public static ClientDTO Select(int _s)

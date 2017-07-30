@@ -29,15 +29,16 @@ namespace lamchovo.GUI
             //
             cbClientImport.ValueMember = "ID";
             cbClientImport.DisplayMember = "clientt";
-            cbClientImport.DataSource = ClientBUS.SelectTrim();
+            cbClientImport.DataSource = ClientBUS.Select();
             //
             txbSheet.Text = "Sheet1";
             //
+            checkboxChoose.CheckState = CheckState.Checked;
         }
         int typeTicket {
             get { return (int)cbTypeFilter.SelectedValue; }
         }
-     
+
         void AddFile(string file, string sheet)
         {
             string[] _split = file.Split(new string[] { "\\" }, StringSplitOptions.RemoveEmptyEntries);
@@ -53,7 +54,26 @@ namespace lamchovo.GUI
             TicketDTO _item = new TicketDTO();
             try
             {
-                object value = row.ItemArray[0];
+                object value;
+                if (!checkboxChoose.Checked)
+                {
+                    value = row.ItemArray[1];
+                    _item.type = int.Parse(row.ItemArray[0].ToString());
+                    _item.price = StringToInt(row.ItemArray[2].ToString());
+                    _item.count = StringToInt(row.ItemArray[3].ToString());
+                }
+                else
+                {
+                    value = row.ItemArray[0];
+                    _item.type = typeTicket;
+                    _item.price = StringToInt(row.ItemArray[1].ToString());
+                    _item.count = StringToInt(row.ItemArray[2].ToString());
+                }
+                if (_item.price == 0 || _item.count == 0)
+                {
+                    errorCount++;
+                    return;
+                }
                 if (value != null)
                 {
                     double dayDouble;
@@ -78,9 +98,6 @@ namespace lamchovo.GUI
                     errorCount++;
                     return;
                 }
-                _item.type = typeTicket;
-                _item.price = int.Parse(row.ItemArray[1].ToString().Replace(",", ""));
-                _item.count = int.Parse(row.ItemArray[2].ToString());
                 _item.client = (int)cbClientImport.SelectedValue;
                 _item.file = fileImport.ID;
                 _item.dayon = dtDayImport.Value;
@@ -123,12 +140,32 @@ namespace lamchovo.GUI
         void OnFinishImport()
         {
             MessageBox.Show("" + rowCount + "/" + (rowCount + errorCount) + " row.", "Thông báo");
-            frmTicket.instance.HienThiDanhSachFileImport(fileImport.ID, typeTicket);
+            frmTicket.instance.HienThiDanhSachFileImport(fileImport.ID);
             this.Close();
         }
-
+        int StringToInt(string _str)
+        {
+            string _strValue = _str.Replace(Application.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
+            try
+            {
+                return int.Parse(_strValue);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
         private void frmImport_FormClosed(object sender, FormClosedEventArgs e)
         {
+        }
+
+        private void checkboxChoose_CheckedChanged(object sender, EventArgs e)
+        {
+            cbTypeFilter.Enabled = checkboxChoose.Checked;
+
+            pictureBox1.Visible = !checkboxChoose.Checked;
+            pictureBox2.Visible = checkboxChoose.Checked;
+            pictureBox3.Visible = checkboxChoose.Checked;
         }
     }
 }

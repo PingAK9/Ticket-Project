@@ -7,7 +7,7 @@ namespace lamchovo.DAO
     {
         static public DataTable Select()
         {
-            string sql = "select * from TypeTicket";
+            string sql = "select * from TypeTicket ORDER BY ID asc";
             return DataAccess.ExcuQuery(sql);
         }
         public static TypeTicketDTO Select(int _s)

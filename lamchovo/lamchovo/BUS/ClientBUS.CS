@@ -15,10 +15,6 @@ namespace lamchovo.BUS
         {
             return ClientDAO.Select();
         }
-        static public DataTable SelectTrim()
-        {
-            return ClientDAO.SelectTrim();
-        }
         public static bool Insert(ClientDTO item)
         {
             if (ClientDAO.Select(item.client) == null)
