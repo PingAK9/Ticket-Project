@@ -35,6 +35,14 @@
             this.btnThem = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.gridView = new System.Windows.Forms.DataGridView();
+            this.dgvMaSach = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvTenSach = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvTacGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvGiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gridTypet = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.gridcbClient = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dateOn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gridFilet = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
             this.dtDayOn = new System.Windows.Forms.DateTimePicker();
@@ -79,14 +87,6 @@
             this.kháchHàngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loạiVéToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.báoCáoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dgvMaSach = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvTenSach = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvTacGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvGiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gridTypet = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.gridcbClient = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dateOn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gridFilet = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -165,7 +165,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(720, 556);
+            this.groupBox2.Size = new System.Drawing.Size(720, 557);
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Danh sách vé";
@@ -193,11 +193,77 @@
             this.gridView.Name = "gridView";
             this.gridView.ReadOnly = true;
             this.gridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridView.Size = new System.Drawing.Size(704, 525);
+            this.gridView.Size = new System.Drawing.Size(704, 526);
             this.gridView.TabIndex = 10;
             this.gridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridView_CellClick);
             this.gridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridView_ColumnHeaderMouseClick);
             this.gridView.SelectionChanged += new System.EventHandler(this.gridView_SelectionChanged);
+            // 
+            // dgvMaSach
+            // 
+            this.dgvMaSach.DataPropertyName = "ID";
+            this.dgvMaSach.HeaderText = "ID";
+            this.dgvMaSach.Name = "dgvMaSach";
+            this.dgvMaSach.ReadOnly = true;
+            this.dgvMaSach.Width = 50;
+            // 
+            // dgvTenSach
+            // 
+            this.dgvTenSach.DataPropertyName = "dayt";
+            this.dgvTenSach.HeaderText = "Ngày";
+            this.dgvTenSach.Name = "dgvTenSach";
+            this.dgvTenSach.ReadOnly = true;
+            // 
+            // dgvTacGia
+            // 
+            this.dgvTacGia.DataPropertyName = "countt";
+            this.dgvTacGia.HeaderText = "SL";
+            this.dgvTacGia.Name = "dgvTacGia";
+            this.dgvTacGia.ReadOnly = true;
+            this.dgvTacGia.Width = 60;
+            // 
+            // dgvGiaBan
+            // 
+            this.dgvGiaBan.DataPropertyName = "pricet";
+            this.dgvGiaBan.HeaderText = "Giá Tiền";
+            this.dgvGiaBan.Name = "dgvGiaBan";
+            this.dgvGiaBan.ReadOnly = true;
+            // 
+            // gridTypet
+            // 
+            this.gridTypet.DataPropertyName = "typet";
+            this.gridTypet.HeaderText = "Loại vé";
+            this.gridTypet.Name = "gridTypet";
+            this.gridTypet.ReadOnly = true;
+            this.gridTypet.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridTypet.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // gridcbClient
+            // 
+            this.gridcbClient.DataPropertyName = "clientt";
+            this.gridcbClient.HeaderText = "Khách Hàng";
+            this.gridcbClient.Name = "gridcbClient";
+            this.gridcbClient.ReadOnly = true;
+            this.gridcbClient.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridcbClient.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.gridcbClient.Width = 200;
+            // 
+            // dateOn
+            // 
+            this.dateOn.DataPropertyName = "dayont";
+            this.dateOn.HeaderText = "Ngày Nộp";
+            this.dateOn.Name = "dateOn";
+            this.dateOn.ReadOnly = true;
+            this.dateOn.Width = 90;
+            // 
+            // gridFilet
+            // 
+            this.gridFilet.DataPropertyName = "filet";
+            this.gridFilet.HeaderText = "File Import";
+            this.gridFilet.Name = "gridFilet";
+            this.gridFilet.ReadOnly = true;
+            this.gridFilet.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridFilet.Width = 50;
             // 
             // groupBox1
             // 
@@ -406,7 +472,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(403, 321);
+            this.groupBox4.Size = new System.Drawing.Size(403, 322);
             this.groupBox4.TabIndex = 21;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Export";
@@ -602,7 +668,7 @@
             this.groupBox6.Controls.Add(this.label11);
             this.groupBox6.Controls.Add(this.txtCountTotal);
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(13, 603);
+            this.groupBox6.Location = new System.Drawing.Point(13, 604);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
@@ -689,77 +755,11 @@
             this.báoCáoToolStripMenuItem.Text = "Báo cáo";
             this.báoCáoToolStripMenuItem.Click += new System.EventHandler(this.báoCáoToolStripMenuItem_Click);
             // 
-            // dgvMaSach
-            // 
-            this.dgvMaSach.DataPropertyName = "ID";
-            this.dgvMaSach.HeaderText = "ID";
-            this.dgvMaSach.Name = "dgvMaSach";
-            this.dgvMaSach.ReadOnly = true;
-            this.dgvMaSach.Width = 50;
-            // 
-            // dgvTenSach
-            // 
-            this.dgvTenSach.DataPropertyName = "dayt";
-            this.dgvTenSach.HeaderText = "Ngày";
-            this.dgvTenSach.Name = "dgvTenSach";
-            this.dgvTenSach.ReadOnly = true;
-            // 
-            // dgvTacGia
-            // 
-            this.dgvTacGia.DataPropertyName = "countt";
-            this.dgvTacGia.HeaderText = "SL";
-            this.dgvTacGia.Name = "dgvTacGia";
-            this.dgvTacGia.ReadOnly = true;
-            this.dgvTacGia.Width = 60;
-            // 
-            // dgvGiaBan
-            // 
-            this.dgvGiaBan.DataPropertyName = "pricet";
-            this.dgvGiaBan.HeaderText = "Giá Tiền";
-            this.dgvGiaBan.Name = "dgvGiaBan";
-            this.dgvGiaBan.ReadOnly = true;
-            // 
-            // gridTypet
-            // 
-            this.gridTypet.DataPropertyName = "typet";
-            this.gridTypet.HeaderText = "Loại vé";
-            this.gridTypet.Name = "gridTypet";
-            this.gridTypet.ReadOnly = true;
-            this.gridTypet.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridTypet.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // gridcbClient
-            // 
-            this.gridcbClient.DataPropertyName = "clientt";
-            this.gridcbClient.HeaderText = "Khách Hàng";
-            this.gridcbClient.Name = "gridcbClient";
-            this.gridcbClient.ReadOnly = true;
-            this.gridcbClient.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridcbClient.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.gridcbClient.Width = 200;
-            // 
-            // dateOn
-            // 
-            this.dateOn.DataPropertyName = "dayont";
-            this.dateOn.HeaderText = "Ngày Nộp";
-            this.dateOn.Name = "dateOn";
-            this.dateOn.ReadOnly = true;
-            this.dateOn.Width = 90;
-            // 
-            // gridFilet
-            // 
-            this.gridFilet.DataPropertyName = "filet";
-            this.gridFilet.HeaderText = "File Import";
-            this.gridFilet.Name = "gridFilet";
-            this.gridFilet.ReadOnly = true;
-            this.gridFilet.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridFilet.Width = 50;
-            // 
             // frmTicket
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1157, 672);
+            this.ClientSize = new System.Drawing.Size(1157, 673);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
@@ -767,9 +767,10 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MinimumSize = new System.Drawing.Size(1175, 720);
             this.Name = "frmTicket";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Vé 1.1";
+            this.Text = "Vé 1.2";
             this.Load += new System.EventHandler(this.frmTicket_Load);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridView)).EndInit();
