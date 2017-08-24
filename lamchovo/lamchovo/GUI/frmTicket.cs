@@ -691,33 +691,41 @@ namespace lamchovo.GUI
         }
         private void gridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (gridView.Columns[e.ColumnIndex].DataPropertyName != "pricet")
+            string _name = gridView.Columns[e.ColumnIndex].DataPropertyName;
+            if (_name == "pricet" || _name == "dayt")
             {
-                return;
-            }
 
-            DataView dv = null;
-            CurrencyManager cm = (CurrencyManager)(gridView.BindingContext[gridView.DataSource, gridView.DataMember]);
 
-            if (cm.List is BindingSource)
-            {
-                // In case of BindingSource it may be chain of BindingSources+relations
-                BindingSource bs = (BindingSource)cm.List;
-                while (bs.List is BindingSource)
-                { bs = bs.List as BindingSource; }
+                DataView dv = null;
+                CurrencyManager cm = (CurrencyManager)(gridView.BindingContext[gridView.DataSource, gridView.DataMember]);
 
-                if (bs.List is DataView)
-                { dv = bs.List as DataView; }
-            }
-            else if (cm.List is DataView)
-            {
-                // dgv bind to the DataView, Table or DataSet+"tablename"
-                dv = cm.List as DataView;
-            }
+                if (cm.List is BindingSource)
+                {
+                    // In case of BindingSource it may be chain of BindingSources+relations
+                    BindingSource bs = (BindingSource)cm.List;
+                    while (bs.List is BindingSource)
+                    { bs = bs.List as BindingSource; }
 
-            if (dv != null)
-            {
-                dv.Sort = "pricet ASC, dayt ASC";
+                    if (bs.List is DataView)
+                    { dv = bs.List as DataView; }
+                }
+                else if (cm.List is DataView)
+                {
+                    // dgv bind to the DataView, Table or DataSet+"tablename"
+                    dv = cm.List as DataView;
+                }
+
+                if (dv != null)
+                {
+                    if (_name == "pricet")
+                    {
+                        dv.Sort = "pricet ASC, dayt ASC";
+                    }
+                    else
+                    {
+                        dv.Sort = "dayt ASC, pricet ASC";
+                    }
+                }
             }
         }
 

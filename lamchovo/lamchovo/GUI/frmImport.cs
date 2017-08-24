@@ -164,8 +164,13 @@ namespace lamchovo.GUI
             cbTypeFilter.Enabled = checkboxChoose.Checked;
 
             pictureBox1.Visible = !checkboxChoose.Checked;
-            pictureBox2.Visible = checkboxChoose.Checked;
+            pictureBox2.Visible = !checkboxChoose.Checked;
             pictureBox3.Visible = checkboxChoose.Checked;
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
