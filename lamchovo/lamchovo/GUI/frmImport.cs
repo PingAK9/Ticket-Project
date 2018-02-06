@@ -23,20 +23,12 @@ namespace lamchovo.GUI
         }
         private void frmTicket_Load(object sender, EventArgs e)
         {
-            cbTypeFilter.ValueMember = "ID";
-            cbTypeFilter.DisplayMember = "typet";
-            cbTypeFilter.DataSource = TypeTicketBUS.Select();
-            //
             cbClientImport.ValueMember = "ID";
             cbClientImport.DisplayMember = "clientt";
             cbClientImport.DataSource = ClientBUS.Select();
             //
             txbSheet.Text = "Sheet1";
             //
-            checkboxChoose.CheckState = CheckState.Checked;
-        }
-        int typeTicket {
-            get { return (int)cbTypeFilter.SelectedValue; }
         }
 
         void AddFile(string file, string sheet)
@@ -54,26 +46,24 @@ namespace lamchovo.GUI
             TicketDTO _item = new TicketDTO();
             try
             {
-                object value;
-                if (!checkboxChoose.Checked)
+                _item.type = int.Parse(row.ItemArray[0].ToString());
+                _item.price = StringToInt(row.ItemArray[2].ToString());
+                int _count = StringToInt(row.ItemArray[6].ToString());
+                int _countTSN = 0;
+                try
                 {
-                    value = row.ItemArray[1];
-                    _item.type = int.Parse(row.ItemArray[0].ToString());
-                    _item.price = StringToInt(row.ItemArray[2].ToString());
-                    _item.count = StringToInt(row.ItemArray[3].ToString());
+                    _countTSN = StringToInt(row.ItemArray[5].ToString());
                 }
-                else
+                catch (Exception)
                 {
-                    value = row.ItemArray[0];
-                    _item.type = typeTicket;
-                    _item.price = StringToInt(row.ItemArray[1].ToString());
-                    _item.count = StringToInt(row.ItemArray[2].ToString());
                 }
-                if (_item.price == 0 || _item.count == 0)
+                if (_item.price == 0 || _count == 0)
                 {
                     errorCount++;
                     return;
                 }
+
+                object value = row.ItemArray[1];
                 if (value != null)
                 {
                     double dayDouble;
@@ -101,7 +91,22 @@ namespace lamchovo.GUI
                 _item.client = (int)cbClientImport.SelectedValue;
                 _item.file = fileImport.ID;
                 _item.dayon = dtDayImport.Value;
-                TicketBUS.Insert(_item);
+                if (_countTSN > 0)
+                {
+                    _item.count = _countTSN;
+                    _item.tsn = true;
+                    TicketBUS.Insert(_item);
+                    //
+                    _item.count = _count - _countTSN;
+                    _item.tsn = false;
+                    TicketBUS.Insert(_item);
+                }
+                else
+                {
+                    _item.count = _count;
+                    _item.tsn = false;
+                    TicketBUS.Insert(_item);
+                }
                 rowCount++;
             }
             catch (Exception)
@@ -159,18 +164,5 @@ namespace lamchovo.GUI
         {
         }
 
-        private void checkboxChoose_CheckedChanged(object sender, EventArgs e)
-        {
-            cbTypeFilter.Enabled = checkboxChoose.Checked;
-
-            pictureBox1.Visible = !checkboxChoose.Checked;
-            pictureBox2.Visible = !checkboxChoose.Checked;
-            pictureBox3.Visible = checkboxChoose.Checked;
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

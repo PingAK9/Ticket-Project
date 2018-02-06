@@ -15,6 +15,7 @@ namespace lamchovo.DTO
         public int client { get; set; }
         public int file { get; set; }
         public int type { get; set; }
+        public bool tsn { get; set; }
         public DateTime dayon { get; set; }
     }
 }

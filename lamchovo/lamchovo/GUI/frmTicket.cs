@@ -119,6 +119,25 @@ namespace lamchovo.GUI
         int typeTicket {
             get { return (int)cbTypeFilter.SelectedValue; }
         }
+        int typePrice
+        {
+            get
+            {
+                if (radioButton2.Checked)
+                {
+                    return 1;
+                }
+                else if (radioButton3.Checked)
+                {
+                    return 2;
+                }
+                else if (radioButton4.Checked)
+                {
+                    return 3;
+                }
+                return 0;
+            }
+        }
         void HienThiDanhSach()
         {
             if (isLoad == false)
@@ -134,8 +153,8 @@ namespace lamchovo.GUI
                     case FilterBy.filename:
                         try
                         {
-                            _dt = TicketBUS.SelectFile((int)cbFileFilter.SelectedValue, typeTicket);
-                            _dtTotal = TicketBUS.SelectFileTotal((int)cbFileFilter.SelectedValue, typeTicket);
+                            _dt = TicketDAO.SelectFile((int)cbFileFilter.SelectedValue, typeTicket, typePrice);
+                            _dtTotal = TicketDAO.SelectFileTotal((int)cbFileFilter.SelectedValue, typeTicket, typePrice);
                         }
                         catch (Exception)
                         {
@@ -145,25 +164,25 @@ namespace lamchovo.GUI
                     case FilterBy.dayTicket:
                         if (checkBoxClient.Checked == true)
                         {
-                            _dt = TicketBUS.SelectDayTicket(dtFrom.Value, dtTo.Value, typeTicket);
-                            _dtTotal = TicketBUS.SelectDayTicketTotal(dtFrom.Value, dtTo.Value, typeTicket);
+                            _dt = TicketDAO.SelectDayTicket(dtFrom.Value, dtTo.Value, typeTicket, typePrice);
+                            _dtTotal = TicketDAO.SelectDayTicketTotal(dtFrom.Value, dtTo.Value, typeTicket, typePrice);
                         }
                         else
                         {
-                            _dt = TicketBUS.SelectDayTicket(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
-                            _dtTotal = TicketBUS.SelectDayTicketTotal(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
+                            _dt = TicketDAO.SelectDayTicket(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck(), typePrice);
+                            _dtTotal = TicketDAO.SelectDayTicketTotal(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck(), typePrice);
                         }
                         break;
                     case FilterBy.dayOn:
                         if (checkBoxClient.Checked == true)
                         {
-                            _dt = TicketBUS.SelectDayOnTicket(dtFrom.Value, dtTo.Value, typeTicket);
-                            _dtTotal = TicketBUS.SelectDayOnTicketTotal(dtFrom.Value, dtTo.Value, typeTicket);
+                            _dt = TicketDAO.SelectDayOnTicket(dtFrom.Value, dtTo.Value, typeTicket, typePrice);
+                            _dtTotal = TicketDAO.SelectDayOnTicketTotal(dtFrom.Value, dtTo.Value, typeTicket, typePrice);
                         }
                         else
                         {
-                            _dt = TicketBUS.SelectDayOnTicket(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
-                            _dtTotal = TicketBUS.SelectDayOnTicketTotal(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
+                            _dt = TicketDAO.SelectDayOnTicket(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck(), typePrice);
+                            _dtTotal = TicketDAO.SelectDayOnTicketTotal(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck(), typePrice);
                         }
                         break;
                 }
@@ -176,8 +195,8 @@ namespace lamchovo.GUI
                     case FilterBy.filename:
                         try
                         {
-                            _dt = TicketBUS.SelectFile((int)cbFileFilter.SelectedValue);
-                            _dtTotal = TicketBUS.SelectFileTotal((int)cbFileFilter.SelectedValue);
+                            _dt = TicketDAO.SelectFile((int)cbFileFilter.SelectedValue, typePrice);
+                            _dtTotal = TicketDAO.SelectFileTotal((int)cbFileFilter.SelectedValue, typePrice);
                         }
                         catch (Exception)
                         {
@@ -187,25 +206,25 @@ namespace lamchovo.GUI
                     case FilterBy.dayTicket:
                         if (checkBoxClient.Checked == true)
                         {
-                            _dt = TicketBUS.SelectDayTicket(dtFrom.Value, dtTo.Value);
-                            _dtTotal = TicketBUS.SelectDayTicketTotal(dtFrom.Value, dtTo.Value);
+                            _dt = TicketDAO.SelectDayTicket(dtFrom.Value, dtTo.Value, typePrice);
+                            _dtTotal = TicketDAO.SelectDayTicketTotal(dtFrom.Value, dtTo.Value, typePrice);
                         }
                         else
                         {
-                            _dt = TicketBUS.SelectDayTicket(dtFrom.Value, dtTo.Value, ClientCheck());
-                            _dtTotal = TicketBUS.SelectDayTicketTotal(dtFrom.Value, dtTo.Value, ClientCheck());
+                            _dt = TicketDAO.SelectDayTicket(dtFrom.Value, dtTo.Value, ClientCheck(), typePrice);
+                            _dtTotal = TicketDAO.SelectDayTicketTotal(dtFrom.Value, dtTo.Value, ClientCheck(), typePrice);
                         }
                         break;
                     case FilterBy.dayOn:
                         if (checkBoxClient.Checked == true)
                         {
-                            _dt = TicketBUS.SelectDayOnTicket(dtFrom.Value, dtTo.Value);
-                            _dtTotal = TicketBUS.SelectDayOnTicketTotal(dtFrom.Value, dtTo.Value);
+                            _dt = TicketDAO.SelectDayOnTicket(dtFrom.Value, dtTo.Value, typePrice);
+                            _dtTotal = TicketDAO.SelectDayOnTicketTotal(dtFrom.Value, dtTo.Value, typePrice);
                         }
                         else
                         {
-                            _dt = TicketBUS.SelectDayOnTicket(dtFrom.Value, dtTo.Value, ClientCheck());
-                            _dtTotal = TicketBUS.SelectDayOnTicketTotal(dtFrom.Value, dtTo.Value, ClientCheck());
+                            _dt = TicketDAO.SelectDayOnTicket(dtFrom.Value, dtTo.Value, ClientCheck(), typePrice);
+                            _dtTotal = TicketDAO.SelectDayOnTicketTotal(dtFrom.Value, dtTo.Value, ClientCheck(), typePrice);
                         }
                         break;
                 }
@@ -231,8 +250,8 @@ namespace lamchovo.GUI
             cbFilter.SelectedValue = 0;
             cbFileFilter.SelectedValue = _id;
             checkBoxType.Checked = false;
-            DataTable _dt = TicketBUS.SelectFile((int)cbFileFilter.SelectedValue);
-            DataTable _dtTotal = TicketBUS.SelectFileTotal((int)cbFileFilter.SelectedValue);
+            DataTable _dt = TicketDAO.SelectFile((int)cbFileFilter.SelectedValue, typePrice);
+            DataTable _dtTotal = TicketDAO.SelectFileTotal((int)cbFileFilter.SelectedValue, typePrice);
             gridView.DataSource = _dt;
             if (_dtTotal.Rows.Count > 0)
             {
@@ -272,6 +291,7 @@ namespace lamchovo.GUI
             _item.client = (int)cbClient.SelectedValue;
             _item.type = (int)cbType.SelectedValue;
             _item.dayon = dtDayOn.Value;
+            _item.tsn = cbTSN.Checked;
             if (TicketBUS.Insert(_item) == false)
             {
                 MessageBox.Show("Cập nhật thành công", "Thông báo");
@@ -295,7 +315,7 @@ namespace lamchovo.GUI
                 MessageBox.Show("ID không đúng", "Thông báo");
                 return;
             }
-            if (TicketBUS.Delete(_id) == false)
+            if (TicketDAO.Delete(_id) == false)
             {
                 MessageBox.Show("Xóa thất bại", "Thông báo");
             }
@@ -334,6 +354,7 @@ namespace lamchovo.GUI
             _item.file = (int)cbFile.SelectedValue;
             _item.type = (int)cbType.SelectedValue;
             _item.dayon = dtDayOn.Value;
+            _item.tsn = cbTSN.Checked;
 
             if (TicketBUS.Update(_item))
             {
@@ -372,26 +393,26 @@ namespace lamchovo.GUI
             switch (filterBy)
             {
                 case FilterBy.filename:
-                    _dt = TicketBUS.SelectFileExport((int)cbFileFilter.SelectedValue, _type);
+                    _dt = TicketDAO.SelectFileExport((int)cbFileFilter.SelectedValue, _type, typePrice);
                     break;
                 case FilterBy.dayTicket:
                     if (checkClientExport.GetItemCheckState(0) == CheckState.Checked)
                     {
-                        _dt = TicketBUS.SelectDayTicketExport(dtFrom.Value, dtTo.Value, _type);
+                        _dt = TicketDAO.SelectDayTicketExport(dtFrom.Value, dtTo.Value, _type, typePrice);
                     }
                     else
                     {
-                        _dt = TicketBUS.SelectDayTicketExport(dtFrom.Value, dtTo.Value, _type, ClientCheck());
+                        _dt = TicketDAO.SelectDayTicketExport(dtFrom.Value, dtTo.Value, _type, ClientCheck(), typePrice);
                     }
                     break;
                 case FilterBy.dayOn:
                     if (checkClientExport.GetItemCheckState(0) == CheckState.Checked)
                     {
-                        _dt = TicketBUS.SelectDayOnTicketExport(dtFrom.Value, dtTo.Value, _type);
+                        _dt = TicketDAO.SelectDayOnTicketExport(dtFrom.Value, dtTo.Value, _type, typePrice);
                     }
                     else
                     {
-                        _dt = TicketBUS.SelectDayOnTicketExport(dtFrom.Value, dtTo.Value, _type, ClientCheck());
+                        _dt = TicketDAO.SelectDayOnTicketExport(dtFrom.Value, dtTo.Value, _type, ClientCheck(), typePrice);
                     }
                     break;
             }
@@ -403,32 +424,65 @@ namespace lamchovo.GUI
             string _title = "Xóa";
             if (MessageBox.Show(_title, "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                switch (filterBy)
+                if (checkBoxType.Checked == true)
                 {
-                    case FilterBy.filename:
-                        TicketBUS.DeleteFile((int)cbFileFilter.SelectedValue);
-                        FileBUS.Delete((int)cbFileFilter.SelectedValue);
-                        break;
-                    case FilterBy.dayTicket:
-                        if (checkClientExport.GetItemCheckState(0) == CheckState.Checked)
-                        {
-                            TicketBUS.DeleteDayTicket(dtFrom.Value, dtTo.Value, typeTicket);
-                        }
-                        else
-                        {
-                            TicketBUS.DeleteDayTicket(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
-                        }
-                        break;
-                    case FilterBy.dayOn:
-                        if (checkClientExport.GetItemCheckState(0) == CheckState.Checked)
-                        {
-                            TicketBUS.DeleteDayOnTicket(dtFrom.Value, dtTo.Value, typeTicket);
-                        }
-                        else
-                        {
-                            TicketBUS.DeleteDayOnTicket(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck());
-                        }
-                        break;
+                    switch (filterBy)
+                    {
+                        case FilterBy.filename:
+                            TicketDAO.DeleteFile((int)cbFileFilter.SelectedValue);
+                            FileBUS.Delete((int)cbFileFilter.SelectedValue);
+                            break;
+                        case FilterBy.dayTicket:
+                            if (checkClientExport.GetItemCheckState(0) == CheckState.Checked)
+                            {
+                                TicketDAO.DeleteDayTicket(dtFrom.Value, dtTo.Value, typeTicket, typePrice);
+                            }
+                            else
+                            {
+                                TicketDAO.DeleteDayTicket(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck(), typePrice);
+                            }
+                            break;
+                        case FilterBy.dayOn:
+                            if (checkClientExport.GetItemCheckState(0) == CheckState.Checked)
+                            {
+                                TicketDAO.DeleteDayOnTicket(dtFrom.Value, dtTo.Value, typeTicket, typePrice);
+                            }
+                            else
+                            {
+                                TicketDAO.DeleteDayOnTicket(dtFrom.Value, dtTo.Value, typeTicket, ClientCheck(), typePrice);
+                            }
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (filterBy)
+                    {
+                        case FilterBy.filename:
+                            TicketDAO.DeleteFile((int)cbFileFilter.SelectedValue);
+                            FileBUS.Delete((int)cbFileFilter.SelectedValue);
+                            break;
+                        case FilterBy.dayTicket:
+                            if (checkClientExport.GetItemCheckState(0) == CheckState.Checked)
+                            {
+                                TicketDAO.DeleteDayTicket(dtFrom.Value, dtTo.Value, typePrice);
+                            }
+                            else
+                            {
+                                TicketDAO.DeleteDayTicket(dtFrom.Value, dtTo.Value, ClientCheck(), typePrice);
+                            }
+                            break;
+                        case FilterBy.dayOn:
+                            if (checkClientExport.GetItemCheckState(0) == CheckState.Checked)
+                            {
+                                TicketDAO.DeleteDayOnTicket(dtFrom.Value, dtTo.Value, typePrice);
+                            }
+                            else
+                            {
+                                TicketDAO.DeleteDayOnTicket(dtFrom.Value, dtTo.Value, ClientCheck(), typePrice);
+                            }
+                            break;
+                    }
                 }
             }
             MessageBox.Show("Xóa thành công", "Xác nhận", MessageBoxButtons.OK);
@@ -454,6 +508,7 @@ namespace lamchovo.GUI
                     cbFile.SelectedValue = _item.file;
                     cbType.SelectedValue = _item.type;
                     dtDayOn.Value = _item.dayon;
+                    cbTSN.Checked= _item.tsn;
                 }
             }
         }
@@ -620,7 +675,7 @@ namespace lamchovo.GUI
         {
             if (MessageBox.Show("Xóa toàn bộ vé!", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                TicketBUS.DeleteAll();
+                TicketDAO.DeleteAll();
                 FileBUS.DeleteAll();
                 refreshFormFile();
                 HienThiDanhSach();
@@ -732,6 +787,26 @@ namespace lamchovo.GUI
         private void groupBox6_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            HienThiDanhSach();
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            HienThiDanhSach();
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            HienThiDanhSach();
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            HienThiDanhSach();
         }
     }
 

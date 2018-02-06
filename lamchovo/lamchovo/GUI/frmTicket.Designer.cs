@@ -35,14 +35,6 @@
             this.btnThem = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.gridView = new System.Windows.Forms.DataGridView();
-            this.dgvMaSach = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvTenSach = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvTacGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvGiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gridTypet = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.gridcbClient = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dateOn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gridFilet = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
             this.dtDayOn = new System.Windows.Forms.DateTimePicker();
@@ -87,12 +79,28 @@
             this.kháchHàngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loạiVéToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.báoCáoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cbTSN = new System.Windows.Forms.CheckBox();
+            this.dgvMaSach = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvTenSach = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvTacGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvGiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gridTypet = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.gridcbClient = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dateOn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gridFilet = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TSN = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnImport
@@ -101,7 +109,7 @@
             this.btnImport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImport.ForeColor = System.Drawing.Color.White;
-            this.btnImport.Location = new System.Drawing.Point(225, 279);
+            this.btnImport.Location = new System.Drawing.Point(225, 336);
             this.btnImport.Margin = new System.Windows.Forms.Padding(4);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(160, 31);
@@ -116,7 +124,7 @@
             this.btnXoa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnXoa.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnXoa.ForeColor = System.Drawing.Color.White;
-            this.btnXoa.Location = new System.Drawing.Point(272, 249);
+            this.btnXoa.Location = new System.Drawing.Point(272, 274);
             this.btnXoa.Margin = new System.Windows.Forms.Padding(4);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(113, 33);
@@ -131,7 +139,7 @@
             this.btnCapNhat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnCapNhat.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCapNhat.ForeColor = System.Drawing.Color.White;
-            this.btnCapNhat.Location = new System.Drawing.Point(148, 249);
+            this.btnCapNhat.Location = new System.Drawing.Point(148, 274);
             this.btnCapNhat.Margin = new System.Windows.Forms.Padding(4);
             this.btnCapNhat.Name = "btnCapNhat";
             this.btnCapNhat.Size = new System.Drawing.Size(113, 33);
@@ -146,7 +154,7 @@
             this.btnThem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnThem.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThem.ForeColor = System.Drawing.Color.White;
-            this.btnThem.Location = new System.Drawing.Point(24, 249);
+            this.btnThem.Location = new System.Drawing.Point(24, 274);
             this.btnThem.Margin = new System.Windows.Forms.Padding(4);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(113, 33);
@@ -165,7 +173,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(720, 557);
+            this.groupBox2.Size = new System.Drawing.Size(843, 648);
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Danh sách vé";
@@ -186,89 +194,25 @@
             this.gridTypet,
             this.gridcbClient,
             this.dateOn,
-            this.gridFilet});
+            this.gridFilet,
+            this.TSN});
             this.gridView.Location = new System.Drawing.Point(8, 23);
             this.gridView.Margin = new System.Windows.Forms.Padding(4);
             this.gridView.MultiSelect = false;
             this.gridView.Name = "gridView";
             this.gridView.ReadOnly = true;
             this.gridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridView.Size = new System.Drawing.Size(704, 526);
+            this.gridView.Size = new System.Drawing.Size(827, 617);
             this.gridView.TabIndex = 10;
             this.gridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridView_CellClick);
             this.gridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridView_ColumnHeaderMouseClick);
             this.gridView.SelectionChanged += new System.EventHandler(this.gridView_SelectionChanged);
             // 
-            // dgvMaSach
-            // 
-            this.dgvMaSach.DataPropertyName = "ID";
-            this.dgvMaSach.HeaderText = "ID";
-            this.dgvMaSach.Name = "dgvMaSach";
-            this.dgvMaSach.ReadOnly = true;
-            this.dgvMaSach.Width = 50;
-            // 
-            // dgvTenSach
-            // 
-            this.dgvTenSach.DataPropertyName = "dayt";
-            this.dgvTenSach.HeaderText = "Ngày";
-            this.dgvTenSach.Name = "dgvTenSach";
-            this.dgvTenSach.ReadOnly = true;
-            // 
-            // dgvTacGia
-            // 
-            this.dgvTacGia.DataPropertyName = "countt";
-            this.dgvTacGia.HeaderText = "SL";
-            this.dgvTacGia.Name = "dgvTacGia";
-            this.dgvTacGia.ReadOnly = true;
-            this.dgvTacGia.Width = 60;
-            // 
-            // dgvGiaBan
-            // 
-            this.dgvGiaBan.DataPropertyName = "pricet";
-            this.dgvGiaBan.HeaderText = "Giá Tiền";
-            this.dgvGiaBan.Name = "dgvGiaBan";
-            this.dgvGiaBan.ReadOnly = true;
-            // 
-            // gridTypet
-            // 
-            this.gridTypet.DataPropertyName = "typet";
-            this.gridTypet.HeaderText = "Loại vé";
-            this.gridTypet.Name = "gridTypet";
-            this.gridTypet.ReadOnly = true;
-            this.gridTypet.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridTypet.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // gridcbClient
-            // 
-            this.gridcbClient.DataPropertyName = "clientt";
-            this.gridcbClient.HeaderText = "Khách Hàng";
-            this.gridcbClient.Name = "gridcbClient";
-            this.gridcbClient.ReadOnly = true;
-            this.gridcbClient.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridcbClient.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.gridcbClient.Width = 200;
-            // 
-            // dateOn
-            // 
-            this.dateOn.DataPropertyName = "dayont";
-            this.dateOn.HeaderText = "Ngày Nộp";
-            this.dateOn.Name = "dateOn";
-            this.dateOn.ReadOnly = true;
-            this.dateOn.Width = 90;
-            // 
-            // gridFilet
-            // 
-            this.gridFilet.DataPropertyName = "filet";
-            this.gridFilet.HeaderText = "File Import";
-            this.gridFilet.Name = "gridFilet";
-            this.gridFilet.ReadOnly = true;
-            this.gridFilet.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridFilet.Width = 50;
-            // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.Controls.Add(this.cbTSN);
             this.groupBox1.Controls.Add(this.btnXoa);
             this.groupBox1.Controls.Add(this.btnThem);
             this.groupBox1.Controls.Add(this.label12);
@@ -288,11 +232,11 @@
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtCount);
-            this.groupBox1.Location = new System.Drawing.Point(742, 37);
+            this.groupBox1.Location = new System.Drawing.Point(865, 37);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(403, 297);
+            this.groupBox1.Size = new System.Drawing.Size(403, 325);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin";
@@ -453,6 +397,7 @@
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox4.Controls.Add(this.panel1);
             this.groupBox4.Controls.Add(this.checkBoxClient);
             this.groupBox4.Controls.Add(this.checkBoxType);
             this.groupBox4.Controls.Add(this.dtFrom);
@@ -468,11 +413,11 @@
             this.groupBox4.Controls.Add(this.lblFrom);
             this.groupBox4.Controls.Add(this.dtTo);
             this.groupBox4.Controls.Add(this.btnExport);
-            this.groupBox4.Location = new System.Drawing.Point(742, 343);
+            this.groupBox4.Location = new System.Drawing.Point(865, 370);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(403, 322);
+            this.groupBox4.Size = new System.Drawing.Size(403, 386);
             this.groupBox4.TabIndex = 21;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Export";
@@ -480,7 +425,7 @@
             // checkBoxClient
             // 
             this.checkBoxClient.AutoSize = true;
-            this.checkBoxClient.Location = new System.Drawing.Point(21, 89);
+            this.checkBoxClient.Location = new System.Drawing.Point(21, 146);
             this.checkBoxClient.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxClient.Name = "checkBoxClient";
             this.checkBoxClient.Size = new System.Drawing.Size(148, 21);
@@ -506,7 +451,7 @@
             // dtFrom
             // 
             this.dtFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtFrom.Location = new System.Drawing.Point(225, 106);
+            this.dtFrom.Location = new System.Drawing.Point(225, 163);
             this.dtFrom.Margin = new System.Windows.Forms.Padding(4);
             this.dtFrom.Name = "dtFrom";
             this.dtFrom.Size = new System.Drawing.Size(160, 22);
@@ -519,7 +464,7 @@
             this.btnXoaFilter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnXoaFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnXoaFilter.ForeColor = System.Drawing.Color.White;
-            this.btnXoaFilter.Location = new System.Drawing.Point(225, 197);
+            this.btnXoaFilter.Location = new System.Drawing.Point(225, 254);
             this.btnXoaFilter.Margin = new System.Windows.Forms.Padding(4);
             this.btnXoaFilter.Name = "btnXoaFilter";
             this.btnXoaFilter.Size = new System.Drawing.Size(160, 33);
@@ -554,17 +499,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkClientExport.FormattingEnabled = true;
-            this.checkClientExport.Location = new System.Drawing.Point(21, 111);
+            this.checkClientExport.Location = new System.Drawing.Point(21, 168);
             this.checkClientExport.Margin = new System.Windows.Forms.Padding(4);
             this.checkClientExport.Name = "checkClientExport";
-            this.checkClientExport.Size = new System.Drawing.Size(181, 191);
+            this.checkClientExport.Size = new System.Drawing.Size(181, 208);
             this.checkClientExport.TabIndex = 27;
             this.checkClientExport.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkClientExport_ItemCheck);
             // 
             // labelFileName
             // 
             this.labelFileName.AutoSize = true;
-            this.labelFileName.Location = new System.Drawing.Point(24, 94);
+            this.labelFileName.Location = new System.Drawing.Point(24, 151);
             this.labelFileName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelFileName.Name = "labelFileName";
             this.labelFileName.Size = new System.Drawing.Size(110, 17);
@@ -589,7 +534,7 @@
             // lblTo
             // 
             this.lblTo.AutoSize = true;
-            this.lblTo.Location = new System.Drawing.Point(225, 140);
+            this.lblTo.Location = new System.Drawing.Point(225, 197);
             this.lblTo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTo.Name = "lblTo";
             this.lblTo.Size = new System.Drawing.Size(38, 17);
@@ -599,7 +544,7 @@
             // cbFileFilter
             // 
             this.cbFileFilter.FormattingEnabled = true;
-            this.cbFileFilter.Location = new System.Drawing.Point(21, 117);
+            this.cbFileFilter.Location = new System.Drawing.Point(21, 174);
             this.cbFileFilter.Margin = new System.Windows.Forms.Padding(4);
             this.cbFileFilter.Name = "cbFileFilter";
             this.cbFileFilter.Size = new System.Drawing.Size(363, 24);
@@ -609,7 +554,7 @@
             // lblFrom
             // 
             this.lblFrom.AutoSize = true;
-            this.lblFrom.Location = new System.Drawing.Point(225, 86);
+            this.lblFrom.Location = new System.Drawing.Point(225, 143);
             this.lblFrom.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFrom.Name = "lblFrom";
             this.lblFrom.Size = new System.Drawing.Size(29, 17);
@@ -619,7 +564,7 @@
             // dtTo
             // 
             this.dtTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtTo.Location = new System.Drawing.Point(225, 161);
+            this.dtTo.Location = new System.Drawing.Point(225, 218);
             this.dtTo.Margin = new System.Windows.Forms.Padding(4);
             this.dtTo.Name = "dtTo";
             this.dtTo.Size = new System.Drawing.Size(160, 22);
@@ -632,7 +577,7 @@
             this.btnExport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExport.ForeColor = System.Drawing.Color.White;
-            this.btnExport.Location = new System.Drawing.Point(225, 238);
+            this.btnExport.Location = new System.Drawing.Point(225, 295);
             this.btnExport.Margin = new System.Windows.Forms.Padding(4);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(160, 33);
@@ -668,7 +613,7 @@
             this.groupBox6.Controls.Add(this.label11);
             this.groupBox6.Controls.Add(this.txtCountTotal);
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(13, 604);
+            this.groupBox6.Location = new System.Drawing.Point(13, 695);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
@@ -701,7 +646,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1157, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1280, 28);
             this.menuStrip1.TabIndex = 31;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -755,11 +700,152 @@
             this.báoCáoToolStripMenuItem.Text = "Báo cáo";
             this.báoCáoToolStripMenuItem.Click += new System.EventHandler(this.báoCáoToolStripMenuItem_Click);
             // 
+            // cbTSN
+            // 
+            this.cbTSN.AutoSize = true;
+            this.cbTSN.Location = new System.Drawing.Point(21, 242);
+            this.cbTSN.Name = "cbTSN";
+            this.cbTSN.Size = new System.Drawing.Size(58, 21);
+            this.cbTSN.TabIndex = 40;
+            this.cbTSN.Text = "TSN";
+            this.cbTSN.UseVisualStyleBackColor = true;
+            // 
+            // dgvMaSach
+            // 
+            this.dgvMaSach.DataPropertyName = "ID";
+            this.dgvMaSach.HeaderText = "ID";
+            this.dgvMaSach.Name = "dgvMaSach";
+            this.dgvMaSach.ReadOnly = true;
+            this.dgvMaSach.Width = 50;
+            // 
+            // dgvTenSach
+            // 
+            this.dgvTenSach.DataPropertyName = "dayt";
+            this.dgvTenSach.HeaderText = "Ngày";
+            this.dgvTenSach.Name = "dgvTenSach";
+            this.dgvTenSach.ReadOnly = true;
+            // 
+            // dgvTacGia
+            // 
+            this.dgvTacGia.DataPropertyName = "countt";
+            this.dgvTacGia.HeaderText = "SL";
+            this.dgvTacGia.Name = "dgvTacGia";
+            this.dgvTacGia.ReadOnly = true;
+            this.dgvTacGia.Width = 60;
+            // 
+            // dgvGiaBan
+            // 
+            this.dgvGiaBan.DataPropertyName = "pricet";
+            this.dgvGiaBan.HeaderText = "Giá Tiền";
+            this.dgvGiaBan.Name = "dgvGiaBan";
+            this.dgvGiaBan.ReadOnly = true;
+            // 
+            // gridTypet
+            // 
+            this.gridTypet.DataPropertyName = "typet";
+            this.gridTypet.HeaderText = "Loại vé";
+            this.gridTypet.Name = "gridTypet";
+            this.gridTypet.ReadOnly = true;
+            this.gridTypet.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridTypet.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // gridcbClient
+            // 
+            this.gridcbClient.DataPropertyName = "clientt";
+            this.gridcbClient.HeaderText = "Khách Hàng";
+            this.gridcbClient.Name = "gridcbClient";
+            this.gridcbClient.ReadOnly = true;
+            this.gridcbClient.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridcbClient.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.gridcbClient.Width = 175;
+            // 
+            // dateOn
+            // 
+            this.dateOn.DataPropertyName = "dayont";
+            this.dateOn.HeaderText = "Ngày Nộp";
+            this.dateOn.Name = "dateOn";
+            this.dateOn.ReadOnly = true;
+            this.dateOn.Width = 90;
+            // 
+            // gridFilet
+            // 
+            this.gridFilet.DataPropertyName = "filet";
+            this.gridFilet.HeaderText = "File Import";
+            this.gridFilet.Name = "gridFilet";
+            this.gridFilet.ReadOnly = true;
+            this.gridFilet.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridFilet.Width = 50;
+            // 
+            // TSN
+            // 
+            this.TSN.DataPropertyName = "tsnt";
+            this.TSN.HeaderText = "TSN";
+            this.TSN.Name = "TSN";
+            this.TSN.ReadOnly = true;
+            this.TSN.Width = 40;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.radioButton4);
+            this.panel1.Controls.Add(this.radioButton3);
+            this.panel1.Controls.Add(this.radioButton2);
+            this.panel1.Controls.Add(this.radioButton1);
+            this.panel1.Location = new System.Drawing.Point(21, 84);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(364, 50);
+            this.panel1.TabIndex = 39;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(17, 15);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(44, 21);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "All";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(78, 15);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(85, 21);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.Text = "<10 triệu";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(174, 15);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(98, 21);
+            this.radioButton3.TabIndex = 2;
+            this.radioButton3.Text = ">=10 Triệu";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(282, 15);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(57, 21);
+            this.radioButton4.TabIndex = 3;
+            this.radioButton4.Text = "TSN";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            this.radioButton4.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
+            // 
             // frmTicket
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1157, 673);
+            this.ClientSize = new System.Drawing.Size(1280, 764);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
@@ -782,6 +868,8 @@
             this.groupBox6.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -838,6 +926,7 @@
         private System.Windows.Forms.CheckBox checkBoxType;
         private System.Windows.Forms.CheckBox checkBoxClient;
         private System.Windows.Forms.ToolStripMenuItem báoCáoToolStripMenuItem;
+        private System.Windows.Forms.CheckBox cbTSN;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvMaSach;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvTenSach;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvTacGia;
@@ -846,5 +935,11 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn gridcbClient;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateOn;
         private System.Windows.Forms.DataGridViewTextBoxColumn gridFilet;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn TSN;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }

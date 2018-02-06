@@ -57,11 +57,11 @@ namespace lamchovo.GUI
             DataTable _dt = new DataTable();
             if (checkBoxType.Checked == true)
             {
-                _dt = TicketBUS.ReportTicket(dtFrom.Value, dtTo.Value, typeTicket);
+                _dt = TicketDAO.ReportTicket(dtFrom.Value, dtTo.Value, typeTicket);
             }
             else
             {
-                _dt = TicketBUS.ReportTicket(dtFrom.Value, dtTo.Value);
+                _dt = TicketDAO.ReportTicket(dtFrom.Value, dtTo.Value);
             }
             gridView.DataSource = _dt;
 
@@ -97,11 +97,11 @@ namespace lamchovo.GUI
             DataTable _dt = new DataTable();
             if (checkBoxType.Checked == true)
             {
-                _dt = TicketBUS.ReportTicket(dtFrom.Value, dtTo.Value, typeTicket);
+                _dt = TicketDAO.ReportTicket(dtFrom.Value, dtTo.Value, typeTicket);
             }
             else
             {
-                _dt = TicketBUS.ReportTicket(dtFrom.Value, dtTo.Value);
+                _dt = TicketDAO.ReportTicket(dtFrom.Value, dtTo.Value);
             }
             return _dt;
         }

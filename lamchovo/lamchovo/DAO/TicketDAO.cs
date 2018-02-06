@@ -35,6 +35,7 @@ namespace lamchovo.DAO
                 tl.file = (int)dt.Rows[0].ItemArray[5];
                 tl.type = (int)dt.Rows[0].ItemArray[6];
                 tl.dayon = (DateTime)dt.Rows[0].ItemArray[7];
+                tl.tsn = (bool)dt.Rows[0].ItemArray[8];
                 return tl;
             }
 
@@ -64,6 +65,7 @@ namespace lamchovo.DAO
                 tl.file = (int)dt.Rows[0].ItemArray[5];
                 tl.type = (int)dt.Rows[0].ItemArray[6];
                 tl.dayon = (DateTime)dt.Rows[0].ItemArray[7];
+                tl.tsn = (bool)dt.Rows[0].ItemArray[8];
                 return tl;
             }
 
@@ -77,19 +79,21 @@ namespace lamchovo.DAO
                 + " clientt = " + item.client + ","
                 + " filet = " + item.file + ","
                 + " typet = " + item.type + ","
+                + " tsnt = " + item.tsn + ","
                 + " dayont = '" + item.dayon.ToShortDateString() + "'"
                 + " where ID = " + item.ID + "";
             DataAccess.ExcuNonQuery(sql);
         }
         public static void Insert(TicketDTO item)
         {
-            string sql = "insert into Ticket(dayt,countt,pricet,clientt,filet,typet,dayont) values("
+            string sql = "insert into Ticket(dayt,countt,pricet,clientt,filet,typet,tsnt,dayont) values("
                 + "'" + item.day.ToShortDateString() + "',"
                 + item.count + ","
                 + item.price + ","
                 + "" + item.client + ","
                 + "" + item.file + ","
                 + "" + item.type + ","
+                + "" + item.tsn + ","
                 + "'" + item.dayon.ToShortDateString() + "'"
                 + ")";
             DataAccess.ExcuNonQuery(sql);
@@ -145,215 +149,243 @@ namespace lamchovo.DAO
             return DataAccess.ExcuQuery(sql);
         }
         // Select TOTAL
-        static public DataTable SelectFileTotal(int _fileName, int _type)
+        static public DataTable SelectFileTotal(int _fileName, int _type, int _typePrice)
         {
-            string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE filet = " + _fileName + " and typet = " + _type + "";
+            string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE"
+                + " filet = " + _fileName 
+                + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayTicketTotal(DateTime _date1, DateTime _date2, int _type)
+        static public DataTable SelectDayTicketTotal(DateTime _date1, DateTime _date2, int _type, int _typePrice)
         {
             string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE"
                 + " dayt >= DateValue('" + _date1.ToShortDateString() + "')"
                 + " AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
-                + " and typet = " + _type + "";
+                + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayTicketTotal(DateTime _date1, DateTime _date2, int _type, List<int> _client)
+        static public DataTable SelectDayTicketTotal(DateTime _date1, DateTime _date2, int _type, List<int> _client, int _typePrice)
         {
             if (_client == null || _client.Count == 0)
             {
-                return SelectDayTicketTotal(_date1, _date2, _type);
+                return SelectDayTicketTotal(_date1, _date2, _type, _typePrice);
             }
             string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE "
                 + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
                 + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice)
                 + " and " + loop(_client);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayOnTicketTotal(DateTime _date1, DateTime _date2, int _type)
+        static public DataTable SelectDayOnTicketTotal(DateTime _date1, DateTime _date2, int _type, int _typePrice)
         {
             string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')"
-                 + " and typet = " + _type + "";
+                 + " and typet = " + _type + ""
+                 + GetTypePrice(_typePrice);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayOnTicketTotal(DateTime _date1, DateTime _date2, int _type, List<int> _client)
+        static public DataTable SelectDayOnTicketTotal(DateTime _date1, DateTime _date2, int _type, List<int> _client, int _typePrice)
         {
             if (_client == null || _client.Count == 0)
             {
-                return SelectDayOnTicketTotal(_date1, _date2, _type);
+                return SelectDayOnTicketTotal(_date1, _date2, _type, _typePrice);
             }
             string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE "
                 + " dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')"
                 + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice)
                 + " and " + loop(_client);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectFileTotal(int _fileName)
+        static public DataTable SelectFileTotal(int _fileName, int _typePrice)
         {
-            string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE filet = " + _fileName + "";
+            string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE filet = " + _fileName + ""
+                + GetTypePrice(_typePrice);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayTicketTotal(DateTime _date1, DateTime _date2)
+        static public DataTable SelectDayTicketTotal(DateTime _date1, DateTime _date2, int _typePrice)
         {
             string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE"
                 + " dayt >= DateValue('" + _date1.ToShortDateString() + "')"
-                + " AND dayt <= DateValue('" + _date2.ToShortDateString() + "')";
+                + " AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
+                + GetTypePrice(_typePrice);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayTicketTotal(DateTime _date1, DateTime _date2, List<int> _client)
+        static public DataTable SelectDayTicketTotal(DateTime _date1, DateTime _date2, List<int> _client, int _typePrice)
         {
             if (_client == null || _client.Count == 0)
             {
-                return SelectDayTicketTotal(_date1, _date2);
+                return SelectDayTicketTotal(_date1, _date2, _typePrice);
             }
             string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE "
                 + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
+                + GetTypePrice(_typePrice)
                 + " and " + loop(_client);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayOnTicketTotal(DateTime _date1, DateTime _date2)
+        static public DataTable SelectDayOnTicketTotal(DateTime _date1, DateTime _date2, int _typePrice)
         {
-            string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')";
+            string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')"
+                + GetTypePrice(_typePrice);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayOnTicketTotal(DateTime _date1, DateTime _date2, List<int> _client)
+        static public DataTable SelectDayOnTicketTotal(DateTime _date1, DateTime _date2, List<int> _client, int _typePrice)
         {
             if (_client == null || _client.Count == 0)
             {
-                return SelectDayOnTicketTotal(_date1, _date2);
+                return SelectDayOnTicketTotal(_date1, _date2, _typePrice);
             }
             string sql = "select sum(countt), sum(pricet * countt) from Ticket WHERE "
                 + " dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')"
+                + GetTypePrice(_typePrice)
                 + " and " + loop(_client);
             return DataAccess.ExcuQuery(sql);
         }
         // Select *
-        static public DataTable SelectFile(int _fileName, int _type)
+        static public DataTable SelectFile(int _fileName, int _type, int _typePrice)
         {
-            string sql = "select * from Ticket WHERE filet = " + _fileName + " and typet = " + _type + "";
+            string sql = "select * from Ticket WHERE filet = " + _fileName 
+                + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayTicket(DateTime _date1, DateTime _date2, int _type)
+        static public DataTable SelectDayTicket(DateTime _date1, DateTime _date2, int _type, int _typePrice)
         {
             string sql = "select * from Ticket WHERE"
                 + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
-                + " and typet = " + _type + "";
+                + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayTicket(DateTime _date1, DateTime _date2, int _type, List<int> _client)
+        static public DataTable SelectDayTicket(DateTime _date1, DateTime _date2, int _type, List<int> _client, int _typePrice)
         {
             if (_client == null || _client.Count == 0)
             {
-                return SelectDayTicket(_date1, _date2, _type);
+                return SelectDayTicket(_date1, _date2, _type, _typePrice);
             }
             string sql = "select * from Ticket WHERE "
                 + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
                 + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice)
                 + " and " + loop(_client);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayOnTicket(DateTime _date1, DateTime _date2, int _type)
+        static public DataTable SelectDayOnTicket(DateTime _date1, DateTime _date2, int _type, int _typePrice)
         {
             string sql = "select * from Ticket WHERE dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')"
-                + " and typet = " + _type + "";
+                + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayOnTicket(DateTime _date1, DateTime _date2, int _type, List<int> _client)
+        static public DataTable SelectDayOnTicket(DateTime _date1, DateTime _date2, int _type, List<int> _client, int _typePrice)
         {
             if (_client == null || _client.Count == 0)
             {
-                return SelectDayOnTicket(_date1, _date2, _type);
+                return SelectDayOnTicket(_date1, _date2, _type, _typePrice);
             }
             string sql = "select * from Ticket WHERE "
                 + " dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')"
                 + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice)
                 + " and " + loop(_client);
             return DataAccess.ExcuQuery(sql);
         }
 
-        static public DataTable SelectFile(int _fileName)
+        static public DataTable SelectFile(int _fileName, int _typePrice)
         {
-            string sql = "select * from Ticket WHERE filet = " + _fileName + "";
+            string sql = "select * from Ticket WHERE filet = " + _fileName + ""
+                + GetTypePrice(_typePrice);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayTicket(DateTime _date1, DateTime _date2)
+        static public DataTable SelectDayTicket(DateTime _date1, DateTime _date2, int _typePrice)
         {
             string sql = "select * from Ticket WHERE"
-                + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')";
+                + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
+                + GetTypePrice(_typePrice);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayTicket(DateTime _date1, DateTime _date2, List<int> _client)
+        static public DataTable SelectDayTicket(DateTime _date1, DateTime _date2, List<int> _client, int _typePrice)
         {
             if (_client == null || _client.Count == 0)
             {
-                return SelectDayTicket(_date1, _date2);
+                return SelectDayTicket(_date1, _date2, _typePrice);
             }
             string sql = "select * from Ticket WHERE "
                 + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
+                + GetTypePrice(_typePrice)
                 + " and " + loop(_client);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayOnTicket(DateTime _date1, DateTime _date2)
+        static public DataTable SelectDayOnTicket(DateTime _date1, DateTime _date2, int _typePrice)
         {
-            string sql = "select * from Ticket WHERE dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')";
+            string sql = "select * from Ticket WHERE dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')"
+                + GetTypePrice(_typePrice);
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayOnTicket(DateTime _date1, DateTime _date2, List<int> _client)
+        static public DataTable SelectDayOnTicket(DateTime _date1, DateTime _date2, List<int> _client, int _typePrice)
         {
             if (_client == null || _client.Count == 0)
             {
-                return SelectDayOnTicket(_date1, _date2);
+                return SelectDayOnTicket(_date1, _date2, _typePrice);
             }
             string sql = "select * from Ticket WHERE "
                 + " dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')"
+                + GetTypePrice(_typePrice)
                 + " and " + loop(_client);
             return DataAccess.ExcuQuery(sql);
         }
         // Select dayt,countt,pricet to Export
-        static public DataTable SelectFileExport(int _fileName, int _type)
+        static public DataTable SelectFileExport(int _fileName, int _type, int _typePrice)
         {
             string sql = "select FORMAT(dayt,'MM/DD/YYYY') AS ShortDate,pricet,sum(countt) from Ticket WHERE "
                 + " filet = " + _fileName + "" 
                 + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice)
                 + " group by dayt, pricet ORDER BY dayt asc";
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayTicketExport(DateTime _date1, DateTime _date2, int _type)
+        static public DataTable SelectDayTicketExport(DateTime _date1, DateTime _date2, int _type, int _typePrice)
         {
             string sql = "select FORMAT(dayt,'MM/DD/YYYY') AS ShortDate,pricet,sum(countt) from Ticket WHERE "
                 + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
+                + GetTypePrice(_typePrice)
                 + " group by dayt, pricet ORDER BY dayt asc";
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayTicketExport(DateTime _date1, DateTime _date2, int _type, List<int> _client)
+        static public DataTable SelectDayTicketExport(DateTime _date1, DateTime _date2, int _type, List<int> _client, int _typePrice)
         {
             if (_client == null || _client.Count == 0)
             {
-                return SelectDayTicketExport(_date1, _date2, _type);
+                return SelectDayTicketExport(_date1, _date2, _type, _typePrice);
             }
             string sql = "select FORMAT(dayt,'MM/DD/YYYY') AS ShortDate,pricet,sum(countt) from Ticket WHERE "
                 + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')" + " AND " + loop(_client)
                 + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice)
                 + " group by dayt, pricet ORDER BY dayt asc";
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayOnTicketExport(DateTime _date1, DateTime _date2, int _type)
+        static public DataTable SelectDayOnTicketExport(DateTime _date1, DateTime _date2, int _type, int _typePrice)
         {
             string sql = "select FORMAT(dayt,'MM/DD/YYYY') AS ShortDate,pricet,sum(countt) from Ticket WHERE "
                 + " dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')"
                 + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice)
                 + " group by dayt, pricet ORDER BY dayt asc";
             return DataAccess.ExcuQuery(sql);
         }
-        static public DataTable SelectDayOnTicketExport(DateTime _date1, DateTime _date2, int _type, List<int> _client)
+        static public DataTable SelectDayOnTicketExport(DateTime _date1, DateTime _date2, int _type, List<int> _client, int _typePrice)
         {
             if (_client == null || _client.Count == 0)
             {
-                return SelectDayOnTicketExport(_date1, _date2, _type);
+                return SelectDayOnTicketExport(_date1, _date2, _type, _typePrice);
             }
             string sql = "select FORMAT(dayt,'MM/DD/YYYY') AS ShortDate,pricet,sum(countt) from Ticket WHERE "
                 + " dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')" + "AND " + loop(_client)
                 + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice)
                 + " group by dayt, pricet ORDER BY dayt asc";
             return DataAccess.ExcuQuery(sql);
         }
@@ -364,45 +396,114 @@ namespace lamchovo.DAO
             string sql = "delete from Ticket WHERE filet = " + _fileName + "";
             DataAccess.ExcuNonQuery(sql);
         }
-        static public void DeleteDayTicket(DateTime _date1, DateTime _date2, int _type)
+        static public void DeleteDayTicket(DateTime _date1, DateTime _date2, int _type, int _typePrice)
         {
             string sql = "delete from Ticket WHERE"
                 + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
-                + " and typet = " + _type + "";
+                + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice);
             DataAccess.ExcuNonQuery(sql);
         }
-        static public void DeleteDayTicket(DateTime _date1, DateTime _date2, int _type, List<int> _client)
+        static public void DeleteDayTicket(DateTime _date1, DateTime _date2, int _type, List<int> _client, int _typePrice)
         {
             if (_client == null || _client.Count == 0)
             {
-                DeleteDayTicket(_date1, _date2, _type);
+                DeleteDayTicket(_date1, _date2, _type, _typePrice);
                 return;
             }
             string sql = "delete from Ticket WHERE "
                 + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
                 + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice)
                 + " and " + loop(_client);
             DataAccess.ExcuNonQuery(sql);
         }
-        static public void DeleteDayOnTicket(DateTime _date1, DateTime _date2, int _type)
+        static public void DeleteDayOnTicket(DateTime _date1, DateTime _date2, int _type, int _typePrice)
         {
             string sql = "delete from Ticket WHERE"
                 + " dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')"
-                + " and typet = " + _type + "";
+                + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice);
             DataAccess.ExcuNonQuery(sql);
         }
-        static public void DeleteDayOnTicket(DateTime _date1, DateTime _date2, int _type, List<int> _client)
+        static public void DeleteDayOnTicket(DateTime _date1, DateTime _date2, int _type, List<int> _client, int _typePrice)
         {
             if (_client == null || _client.Count == 0)
             {
-                DeleteDayOnTicket(_date1, _date2, _type);
+                DeleteDayOnTicket(_date1, _date2, _type, _typePrice);
                 return;
             }
             string sql = "delete from Ticket WHERE "
                 + " dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')"
                 + " and typet = " + _type + ""
+                + GetTypePrice(_typePrice)
                 + " and " + loop(_client);
             DataAccess.ExcuNonQuery(sql);
+        }
+        static public void DeleteDayTicket(DateTime _date1, DateTime _date2,  int _typePrice)
+        {
+            string sql = "delete from Ticket WHERE"
+                + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
+                + GetTypePrice(_typePrice);
+            DataAccess.ExcuNonQuery(sql);
+        }
+        static public void DeleteDayTicket(DateTime _date1, DateTime _date2, List<int> _client, int _typePrice)
+        {
+            if (_client == null || _client.Count == 0)
+            {
+                DeleteDayTicket(_date1, _date2, _typePrice);
+                return;
+            }
+            string sql = "delete from Ticket WHERE "
+                + " dayt >= DateValue('" + _date1.ToShortDateString() + "') AND dayt <= DateValue('" + _date2.ToShortDateString() + "')"
+                + GetTypePrice(_typePrice)
+                + " and " + loop(_client);
+            DataAccess.ExcuNonQuery(sql);
+        }
+        static public void DeleteDayOnTicket(DateTime _date1, DateTime _date2, int _typePrice)
+        {
+            string sql = "delete from Ticket WHERE"
+                + " dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')"
+                + GetTypePrice(_typePrice);
+            DataAccess.ExcuNonQuery(sql);
+        }
+        static public void DeleteDayOnTicket(DateTime _date1, DateTime _date2, List<int> _client, int _typePrice)
+        {
+            if (_client == null || _client.Count == 0)
+            {
+                DeleteDayOnTicket(_date1, _date2, _typePrice);
+                return;
+            }
+            string sql = "delete from Ticket WHERE "
+                + " dayont >= DateValue('" + _date1.ToShortDateString() + "') AND dayont <= DateValue('" + _date2.ToShortDateString() + "')"
+                + GetTypePrice(_typePrice)
+                + " and " + loop(_client);
+            DataAccess.ExcuNonQuery(sql);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="typePrice"></param>
+        /// <returns></returns>
+        static string GetTypePrice(int typePrice)
+        {
+            string _value = "";
+            switch (typePrice)
+            {
+                case 1: // < 10tr
+                    _value = " and pricet < 10000000 and tsnt = false";
+                    break;
+                case 2: // >= 10tr
+                    _value = " and pricet >= 10000000 and tsnt = false";
+                    break;
+                case 3: // tsn
+                    _value = " and tsnt = true";
+                    break;
+                default:
+                    _value = "";
+                    break;
+            }
+            return _value;
         }
     }
 }
