@@ -15,7 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_319DE9F700EA427CB8D7C63EA7D225C1"
+        "MsmKey" = "8:_15F4C398BEA54242824445514CFF2A04"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3029B3D9B052443A8534FCEF5953B160"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -34,12 +40,6 @@
         "Entry"
         {
         "MsmKey" = "8:_C019ECF9656E44D3A4968BEADE360D33"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E2914625CACF4AA7917FEEB3547BDB62"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -150,10 +150,30 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_319DE9F700EA427CB8D7C63EA7D225C1"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_15F4C398BEA54242824445514CFF2A04"
             {
-            "SourcePath" = "8:..\\lamchovo\\bin\\x86\\Debug\\template.xlsx"
+            "SourcePath" = "8:..\\template.xlsx"
             "TargetName" = "8:template.xlsx"
+            "Tag" = "8:"
+            "Folder" = "8:_F8C09116FFC2473EA9B90B7F5594E1BB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3029B3D9B052443A8534FCEF5953B160"
+            {
+            "SourcePath" = "8:..\\client.xlsx"
+            "TargetName" = "8:client.xlsx"
             "Tag" = "8:"
             "Folder" = "8:_F8C09116FFC2473EA9B90B7F5594E1BB"
             "Condition" = "8:"
@@ -177,6 +197,11 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
+                    "_9B2EE0F8B526050B8489002044EEE9D4"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -200,26 +225,6 @@
             {
             "SourcePath" = "8:..\\Lamchovo.accdb"
             "TargetName" = "8:Lamchovo.accdb"
-            "Tag" = "8:"
-            "Folder" = "8:_F8C09116FFC2473EA9B90B7F5594E1BB"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E2914625CACF4AA7917FEEB3547BDB62"
-            {
-            "SourcePath" = "8:..\\lamchovo\\bin\\Debug\\client.xlsx"
-            "TargetName" = "8:client.xlsx"
             "Tag" = "8:"
             "Folder" = "8:_F8C09116FFC2473EA9B90B7F5594E1BB"
             "Condition" = "8:"
@@ -853,7 +858,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B1603F399FE64041987EB108B9FF206E"
             {
-            "SourcePath" = "8:..\\lamchovo\\obj\\x86\\Debug\\lamchovo.exe"
+            "SourcePath" = "8:..\\lamchovo\\obj\\Release\\lamchovo.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F8C09116FFC2473EA9B90B7F5594E1BB"
