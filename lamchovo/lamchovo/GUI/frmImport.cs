@@ -41,18 +41,18 @@ namespace lamchovo.GUI
             FileBUS.Insert(_file);
             fileImport  = FileBUS.Select(_name);
         }
-        void AddRow(DataRow row)
+        void AddRowByPrice(DataRow row)
         {
             TicketDTO _item = new TicketDTO();
             try
             {
                 _item.type = int.Parse(row.ItemArray[0].ToString());
                 _item.price = StringToInt(row.ItemArray[2].ToString());
-                int _count = StringToInt(row.ItemArray[6].ToString());
+                int _count = StringToInt(row.ItemArray[9].ToString());
                 int _countTSN = 0;
                 try
                 {
-                    _countTSN = StringToInt(row.ItemArray[5].ToString());
+                    _countTSN = StringToInt(row.ItemArray[7].ToString());
                 }
                 catch (Exception)
                 {
@@ -114,6 +114,57 @@ namespace lamchovo.GUI
                 errorCount++;
             }
         }
+        void AddRow(DataRow row)
+        {
+            TicketDTO _item = new TicketDTO();
+            try
+            {
+                _item.type = int.Parse(row.ItemArray[0].ToString());
+                _item.price = StringToInt(row.ItemArray[2].ToString());
+                _item.count = StringToInt(row.ItemArray[3].ToString());
+                if (_item.price <= 0 || _item.count <= 0)
+                {
+                    errorCount++;
+                    return;
+                }
+
+                object value = row.ItemArray[1];
+                if (value != null)
+                {
+                    double dayDouble;
+                    bool isDouble = Double.TryParse(value.ToString(), out dayDouble);
+                    if (isDouble)
+                    {
+                        _item.day = DateTime.FromOADate(dayDouble);
+                    }
+                    else
+                    {
+                        DateTime _dt;
+                        if (DateTime.TryParse(value.ToString(), out _dt) == false)
+                        {
+                            errorCount++;
+                            return;
+                        }
+                        _item.day = _dt;
+                    }
+                }
+                if (_item.day == null)
+                {
+                    errorCount++;
+                    return;
+                }
+                _item.client = (int)cbClientImport.SelectedValue;
+                _item.file = fileImport.ID;
+                _item.dayon = dtDayImport.Value;
+                _item.tsn = false;
+                TicketBUS.Insert(_item);
+                rowCount++;
+            }
+            catch (Exception)
+            {
+                errorCount++;
+            }
+        }
         int rowCount;
         int errorCount;
         FileDTO fileImport;
@@ -132,7 +183,14 @@ namespace lamchovo.GUI
                 AddFile(strPathName, txbSheet.Text);
                 foreach (DataRow row in dt.Rows)
                 {
-                    AddRow(row);
+                    if (cbFitterPrice.Checked)
+                    {
+                        AddRowByPrice(row);
+                    }
+                    else
+                    {
+                        AddRow(row);
+                    }
                 }
                 OnFinishImport();
                 //

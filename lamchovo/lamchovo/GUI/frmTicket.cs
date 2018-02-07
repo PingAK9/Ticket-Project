@@ -377,6 +377,11 @@ namespace lamchovo.GUI
             {
                 return;
             }
+            if (strFileName.Contains("."))
+            {
+                string[] separators = {"."};
+                strFileName = strFileName.Split(separators, StringSplitOptions.None)[0];
+            }
             Directory.SetCurrentDirectory(oldPath);
             ExcelFileWriterTicket myExcel = new ExcelFileWriterTicket();
             DataTable dtMega = GetDataExport(1);

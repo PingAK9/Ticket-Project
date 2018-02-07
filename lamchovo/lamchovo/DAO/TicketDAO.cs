@@ -490,11 +490,11 @@ namespace lamchovo.DAO
             string _value = "";
             switch (typePrice)
             {
-                case 1: // < 10tr
-                    _value = " and pricet < 10000000 and tsnt = false";
+                case 1: // <= 10tr
+                    _value = " and pricet <= 10000000 and tsnt = false";
                     break;
-                case 2: // >= 10tr
-                    _value = " and pricet >= 10000000 and tsnt = false";
+                case 2: // > 10tr
+                    _value = " and pricet > 10000000 and tsnt = false";
                     break;
                 case 3: // tsn
                     _value = " and tsnt = true";
